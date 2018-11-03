@@ -1,9 +1,10 @@
 {
   "paragraphs": [
     {
+      "title": "Import \u0026 def",
       "text": "%python\nfrom binance.client import Client\nfrom pprint import pprint as p\nfrom datetime import datetime\nimport numpy as np\nimport time\nimport pandas as pd\n\ndef __Api__():\n    f \u003d open(\"/home/scio/zepl/conf/API_KEY\", \u0027r\u0027)\n    line \u003d f.readline()\n    f.close()\n    return line\ndef __Sign__():\n    f \u003d open(\"/home/scio/zepl/conf/SECRET_KEY\", \u0027r\u0027)\n    line \u003d f.readline()\n    f.close()\n    return line",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-04 02:14:06.478",
+      "dateUpdated": "2018-11-04 03:08:55.152",
       "config": {
         "editorSetting": {
           "language": "python",
@@ -14,7 +15,7 @@
         "editorMode": "ace/mode/python",
         "editorHide": false,
         "fontSize": 9.0,
-        "title": false,
+        "title": true,
         "results": {},
         "enabled": false
       },
@@ -80,7 +81,7 @@
       "title": "show chart",
       "text": "%python\n# chart\u003d client.get_historical_klines(BTC, \"4h\", \"1 Jul, 2014\")\nchart\u003d client.get_historical_klines(BTC, \"12h\", \"1 Jul, 2014\")\nfor i in range(len(chart)):\n    chart[i][0]\u003ddatetime.fromtimestamp(chart[i][0]/1000).strftime(\u0027%Y-%m-%d %H:%M\u0027)\nz.show(pd.DataFrame(chart))",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-04 03:01:51.763",
+      "dateUpdated": "2018-11-04 03:08:36.258",
       "config": {
         "editorSetting": {
           "language": "python",
