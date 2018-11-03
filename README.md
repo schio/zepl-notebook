@@ -1,2 +1,3 @@
 # zepl-notebook
-HOME SERVER의 
+HOME SERVER의 Zeppelin Notebook
+
