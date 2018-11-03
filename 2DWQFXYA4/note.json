@@ -80,7 +80,7 @@
       "title": "show chart",
       "text": "%python\n# chart\u003d client.get_historical_klines(BTC, \"4h\", \"1 Jul, 2014\")\nchart\u003d client.get_historical_klines(BTC, \"12h\", \"1 Jul, 2014\")\nfor i in range(len(chart)):\n    chart[i][0]\u003ddatetime.fromtimestamp(chart[i][0]/1000).strftime(\u0027%Y-%m-%d %H:%M\u0027)\nz.show(pd.DataFrame(chart))",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-04 02:14:09.229",
+      "dateUpdated": "2018-11-04 03:01:51.763",
       "config": {
         "editorSetting": {
           "language": "python",
@@ -160,7 +160,9 @@
   "noteParams": {},
   "noteForms": {},
   "angularObjects": {
-    "python:shared_process": []
+    "md:shared_process": [],
+    "python:shared_process": [],
+    "spark:shared_process": []
   },
   "config": {
     "isZeppelinNotebookCronEnable": false
