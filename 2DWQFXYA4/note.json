@@ -4,7 +4,7 @@
       "title": "Import \u0026 def",
       "text": "%python\nfrom binance.client import Client\nfrom pprint import pprint as p\nfrom datetime import datetime\nimport numpy as np\nimport time\nimport pandas as pd\n\ndef __Api__():\n    f \u003d open(\"/home/scio/zepl/conf/API_KEY\", \u0027r\u0027)\n    line \u003d f.readline()\n    f.close()\n    return line\ndef __Sign__():\n    f \u003d open(\"/home/scio/zepl/conf/SECRET_KEY\", \u0027r\u0027)\n    line \u003d f.readline()\n    f.close()\n    return line",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-04 03:08:55.152",
+      "dateUpdated": "2018-11-05 13:19:30.474",
       "config": {
         "editorSetting": {
           "language": "python",
@@ -17,7 +17,7 @@
         "fontSize": 9.0,
         "title": true,
         "results": {},
-        "enabled": false
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -31,16 +31,16 @@
       "jobName": "paragraph_1541265187062_-62565477",
       "id": "20180523-185558_1395932515",
       "dateCreated": "2018-11-04 02:13:07.062",
-      "dateStarted": "2018-11-04 02:13:59.547",
-      "dateFinished": "2018-11-04 02:14:03.876",
+      "dateStarted": "2018-11-05 13:19:30.485",
+      "dateFinished": "2018-11-05 13:19:30.995",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
       "title": "GET 4Klines and To json",
-      "text": "%python\nBTC\u003d\u0027BTCUSDT\u0027\nclient \u003d Client(__Api__(),__Sign__())\nklines_orig \u003d client.get_historical_klines(BTC, \u00274h\u0027, \"1 Jul, 2014\")\n\nfor i in range(len(klines_orig)):\n    klines_orig[i][0]\u003ddatetime.fromtimestamp(klines_orig[i][0]/1000).strftime(\u0027%Y-%m-%d %H:%M\u0027)\n    klines_orig[i][6]\u003ddatetime.fromtimestamp(klines_orig[i][6]/1000).strftime(\u0027%Y-%m-%d %H:%M\u0027)\nklines\u003dnp.array(klines_orig)\n# klines\u003dklines[:,1:6]\n\ndf\u003dpd.DataFrame(klines)\nwith open(\"/home/scio/Desktop/bot/data/4klines.json\", \u0027w\u0027) as f:\n    f.write(df.to_json(orient\u003d\u0027records\u0027, lines\u003dTrue))\n    \nprint(\"shape is\",klines.shape)",
+      "text": "%python\nBTC\u003d\u0027BTCUSDT\u0027\nclient \u003d Client(__Api__(),__Sign__())\nklines_orig \u003d client.get_historical_klines(BTC, \u00274h\u0027, \"1 Jul, 2014\")\n\nfor i in range(len(klines_orig)):\n    # klines_orig[i][0]\u003ddatetime.fromtimestamp(klines_orig[i][0]/1000).strftime(\u0027%Y-%m-%d %H:%M\u0027)\n    # klines_orig[i][6]\u003ddatetime.fromtimestamp(klines_orig[i][6]/1000).strftime(\u0027%Y-%m-%d %H:%M\u0027)\n    klines_orig[i][0]\u003dint(datetime.fromtimestamp(klines_orig[i][0]/1000).strftime(\u0027%Y%m%d%H%M\u0027))\n    klines_orig[i][6]\u003dint(datetime.fromtimestamp(klines_orig[i][6]/1000).strftime(\u0027%Y%m%d%H%M\u0027))\nklines\u003dnp.array(klines_orig)\n# klines\u003dklines[:,1:6]\n\ndf\u003dpd.DataFrame(klines)\nwith open(\"/home/scio/Desktop/bot/data/4klines.json\", \u0027w\u0027) as f:\n    f.write(df.to_json(orient\u003d\u0027records\u0027, lines\u003dTrue))\ndf.to_csv(\"/home/scio/Desktop/bot/data/4klines.csv\",sep\u003d\u0027,\u0027)\nprint(\"shape is\",klines.shape)",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-04 02:14:07.144",
+      "dateUpdated": "2018-11-05 13:29:15.244",
       "config": {
         "editorSetting": {
           "language": "python",
@@ -53,7 +53,7 @@
         "fontSize": 9.0,
         "title": true,
         "results": {},
-        "enabled": false
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -64,7 +64,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "shape is (2651, 12)\n"
+            "data": "shape is (2660, 12)\n"
           }
         ]
       },
@@ -72,8 +72,8 @@
       "jobName": "paragraph_1541265187064_-778301035",
       "id": "20181007-181042_543214674",
       "dateCreated": "2018-11-04 02:13:07.064",
-      "dateStarted": "2018-11-04 02:14:03.889",
-      "dateFinished": "2018-11-04 02:14:05.648",
+      "dateStarted": "2018-11-05 13:29:15.255",
+      "dateFinished": "2018-11-05 13:29:17.130",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -81,7 +81,7 @@
       "title": "show chart",
       "text": "%python\n# chart\u003d client.get_historical_klines(BTC, \"4h\", \"1 Jul, 2014\")\nchart\u003d client.get_historical_klines(BTC, \"12h\", \"1 Jul, 2014\")\nfor i in range(len(chart)):\n    chart[i][0]\u003ddatetime.fromtimestamp(chart[i][0]/1000).strftime(\u0027%Y-%m-%d %H:%M\u0027)\nz.show(pd.DataFrame(chart))",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-04 03:08:36.258",
+      "dateUpdated": "2018-11-05 13:29:25.070",
       "config": {
         "editorSetting": {
           "language": "python",
@@ -127,7 +127,7 @@
             "helium": {}
           }
         },
-        "enabled": false
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -150,8 +150,8 @@
       "jobName": "paragraph_1541265187065_923489734",
       "id": "20180606-163820_1334845252",
       "dateCreated": "2018-11-04 02:13:07.065",
-      "dateStarted": "2018-11-04 02:14:04.641",
-      "dateFinished": "2018-11-04 02:14:06.011",
+      "dateStarted": "2018-11-05 13:29:23.384",
+      "dateFinished": "2018-11-05 13:29:23.904",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     }
