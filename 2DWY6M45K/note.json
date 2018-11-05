@@ -1,0 +1,69 @@
+{
+  "paragraphs": [
+    {
+      "text": "%pyspark\na\u003d3\na",
+      "user": "ghsehr1",
+      "dateUpdated": "2018-11-04 14:29:07.917",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "scala.reflect.internal.MissingRequirementError: object java.lang.Object in compiler mirror not found.\n\tat scala.reflect.internal.MissingRequirementError$.signal(MissingRequirementError.scala:17)\n\tat scala.reflect.internal.MissingRequirementError$.notFound(MissingRequirementError.scala:18)\n\tat scala.reflect.internal.Mirrors$RootsBase.getModuleOrClass(Mirrors.scala:53)\n\tat scala.reflect.internal.Mirrors$RootsBase.getModuleOrClass(Mirrors.scala:45)\n\tat scala.reflect.internal.Mirrors$RootsBase.getModuleOrClass(Mirrors.scala:45)\n\tat scala.reflect.internal.Mirrors$RootsBase.getModuleOrClass(Mirrors.scala:66)\n\tat scala.reflect.internal.Mirrors$RootsBase.getClassByName(Mirrors.scala:102)\n\tat scala.reflect.internal.Mirrors$RootsBase.getRequiredClass(Mirrors.scala:105)\n\tat scala.reflect.internal.Definitions$DefinitionsClass.ObjectClass$lzycompute(Definitions.scala:257)\n\tat scala.reflect.internal.Definitions$DefinitionsClass.ObjectClass(Definitions.scala:257)\n\tat scala.reflect.internal.Definitions$DefinitionsClass.init(Definitions.scala:1394)\n\tat scala.tools.nsc.Global$Run.\u003cinit\u003e(Global.scala:1215)\n\tat scala.tools.nsc.interpreter.IMain.compileSourcesKeepingRun(IMain.scala:432)\n\tat scala.tools.nsc.interpreter.IMain$ReadEvalPrint.compileAndSaveRun(IMain.scala:855)\n\tat scala.tools.nsc.interpreter.IMain$ReadEvalPrint.compile(IMain.scala:813)\n\tat scala.tools.nsc.interpreter.IMain.bind(IMain.scala:675)\n\tat scala.tools.nsc.interpreter.IMain.bind(IMain.scala:712)\n\tat scala.tools.nsc.interpreter.IMain$$anonfun$quietBind$1.apply(IMain.scala:711)\n\tat scala.tools.nsc.interpreter.IMain$$anonfun$quietBind$1.apply(IMain.scala:711)\n\tat scala.tools.nsc.interpreter.IMain.beQuietDuring(IMain.scala:214)\n\tat scala.tools.nsc.interpreter.IMain.quietBind(IMain.scala:711)\n\tat scala.tools.nsc.interpreter.ILoop.scala$tools$nsc$interpreter$ILoop$$loopPostInit(ILoop.scala:891)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:564)\n\tat org.apache.zeppelin.spark.BaseSparkScalaInterpreter.callMethod(BaseSparkScalaInterpreter.scala:270)\n\tat org.apache.zeppelin.spark.BaseSparkScalaInterpreter.callMethod(BaseSparkScalaInterpreter.scala:262)\n\tat org.apache.zeppelin.spark.SparkScala211Interpreter.open(SparkScala211Interpreter.scala:84)\n\tat org.apache.zeppelin.spark.NewSparkInterpreter.open(NewSparkInterpreter.java:102)\n\tat org.apache.zeppelin.spark.SparkInterpreter.open(SparkInterpreter.java:62)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.open(LazyOpenInterpreter.java:69)\n\tat org.apache.zeppelin.spark.PySparkInterpreter.getSparkInterpreter(PySparkInterpreter.java:664)\n\tat org.apache.zeppelin.spark.PySparkInterpreter.createGatewayServerAndStartScript(PySparkInterpreter.java:260)\n\tat org.apache.zeppelin.spark.PySparkInterpreter.open(PySparkInterpreter.java:194)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.open(LazyOpenInterpreter.java:69)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:617)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:188)\n\tat org.apache.zeppelin.scheduler.FIFOScheduler$1.run(FIFOScheduler.java:140)\n\tat java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:514)\n\tat java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)\n\tat java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1135)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)\n\tat java.base/java.lang.Thread.run(Thread.java:844)\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1541309303767_1145218145",
+      "id": "20181104-142823_2135984873",
+      "dateCreated": "2018-11-04 14:28:23.768",
+      "dateStarted": "2018-11-04 14:29:07.928",
+      "dateFinished": "2018-11-04 14:29:13.578",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "user": "ghsehr1",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1541309305299_268042918",
+      "id": "20181104-142825_910265210",
+      "dateCreated": "2018-11-04 14:28:25.299",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "spark_test",
+  "id": "2DWY6M45K",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}
