@@ -44,7 +44,7 @@
       "title": "선언",
       "text": "import sys\nimport tensorflow as tf\nimport pandas as pd\nimport json\nfrom pprint import pprint as p\nimport os\nimport matplotlib.pyplot as plt\nimport numpy as np\nimport datetime\nimport time\nimport tensorflow as tf\nimport numpy as np\nfrom binance.client import Client\nfrom datetime import datetime\nimport csv\n\ndef __Api__():\n    f \u003d open(\"/home/scio/zepl/conf/API_KEY\", \u0027r\u0027)\n    line \u003d f.readline()\n    f.close()\n    return line\ndef __Sign__():\n    f \u003d open(\"/home/scio/zepl/conf/SECRET_KEY\", \u0027r\u0027)\n    line \u003d f.readline()\n    f.close()\n    return line\n    \nprint(\u0027python version is\u0027,sys.version.split()[0],sys.version.split()[1],sys.version.split()[2])\nprint(\u0027tensorflow version is\u0027,tf.__version__)",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-06 21:38:37.707",
+      "dateUpdated": "2018-11-08 23:10:48.289",
       "config": {
         "colWidth": 6.0,
         "fontSize": 9.0,
@@ -76,8 +76,8 @@
       "jobName": "paragraph_1541391240402_-1901672382",
       "id": "20181105-131400_841283194",
       "dateCreated": "2018-11-05 13:14:00.402",
-      "dateStarted": "2018-11-06 21:38:21.152",
-      "dateFinished": "2018-11-06 21:38:24.319",
+      "dateStarted": "2018-11-08 23:10:48.305",
+      "dateFinished": "2018-11-08 23:10:49.080",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -85,7 +85,7 @@
       "title": "API를 이용한 Kline(CandleSticks) 호출 및 저장",
       "text": "BTC\u003d\u0027BTCUSDT\u0027\nclient \u003d Client(__Api__(),__Sign__())\nklines_orig \u003d client.get_historical_klines(BTC, \u00274h\u0027, \"1 Jul, 2014\")\n\nfor i in range(len(klines_orig)):\n    # klines_orig[i][0]\u003ddatetime.fromtimestamp(klines_orig[i][0]/1000).strftime(\u0027%Y-%m-%d %H:%M\u0027)\n    # klines_orig[i][6]\u003ddatetime.fromtimestamp(klines_orig[i][6]/1000).strftime(\u0027%Y-%m-%d %H:%M\u0027)\n    klines_orig[i][0]\u003dint(datetime.fromtimestamp(klines_orig[i][0]/1000).strftime(\u0027%Y%m%d%H%M\u0027))\n    klines_orig[i][6]\u003dint(datetime.fromtimestamp(klines_orig[i][6]/1000).strftime(\u0027%Y%m%d%H%M\u0027))\nklines\u003dnp.array(klines_orig)\n# klines\u003dklines[:,1:6]\n\ndf\u003dpd.DataFrame(klines)\n# To JSON\nwith open(\"/home/scio/Desktop/bot/data/4klines.json\", \u0027w\u0027) as f:\n    f.write(df.to_json(orient\u003d\u0027records\u0027, lines\u003dTrue))\n    \n# To CSV\ndf.to_csv(\"/home/scio/Desktop/bot/data/4klines.csv\",sep\u003d\u0027,\u0027)\nprint(\"shape is\",klines.shape)\n\nchart\u003d client.get_historical_klines(BTC, \"12h\", \"1 Jul, 2014\")\nfor i in range(len(chart)):\n    chart[i][0]\u003ddatetime.fromtimestamp(chart[i][0]/1000).strftime(\u0027%Y-%m-%d %H:%M\u0027)\n",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-06 21:38:26.561",
+      "dateUpdated": "2018-11-08 23:05:42.528",
       "config": {
         "colWidth": 6.0,
         "fontSize": 9.0,
@@ -141,7 +141,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "shape is (2668, 12)\n"
+            "data": "shape is (2680, 12)\n"
           }
         ]
       },
@@ -149,8 +149,8 @@
       "jobName": "paragraph_1541500891903_-1878392287",
       "id": "20181106-194131_1887673035",
       "dateCreated": "2018-11-06 19:41:31.903",
-      "dateStarted": "2018-11-06 21:38:26.576",
-      "dateFinished": "2018-11-06 21:38:28.997",
+      "dateStarted": "2018-11-08 23:05:44.076",
+      "dateFinished": "2018-11-08 23:05:54.902",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -158,7 +158,7 @@
       "title": "암호화폐(비트코인) 차트",
       "text": "z.show(pd.DataFrame(chart))",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-07 00:01:39.914",
+      "dateUpdated": "2018-11-08 23:09:48.148",
       "config": {
         "colWidth": 12.0,
         "fontSize": 9.0,
@@ -262,9 +262,9 @@
     },
     {
       "title": "def dataLoad(filename)",
-      "text": "def dataLoad(filename):\r\n    # Origin Ver-------------------------------------------\r\n    fp \u003d open(filename, \u0027r\u0027)\r\n    csv_reader \u003d csv.reader(fp)\r\n    btcusdt_data \u003d []\r\n    for row in csv_reader:\r\n        btcusdt_data.append(row)\r\n    # btcusdt_data \u003d np.genfromtxt(filename,delimiter\u003d\u0027,\u0027).transpose()\r\n    del btcusdt_data[0] #인덱스 역할 컬럼 제거\r\n    \r\n    \r\n    for row in btcusdt_data: #Open time\r\n        del row[0] # Open time\r\n        del row[6] # Close time 제거\r\n    dataset \u003d []\r\n    for data in btcusdt_data:\r\n        data_point \u003d []\r\n        is_null \u003d False\r\n        for element in data[1:]:\r\n            if element \u003d\u003d \u0027null\u0027:\r\n                is_null \u003d True\r\n            else:\r\n                data_point.append(float(element))\r\n        if is_null:\r\n            continue\r\n        dataset.append(np.array(data_point))\r\n    dataset \u003d np.array(dataset)\r\n    temp\u003d np.array(dataset)\r\n    # ---------------------------------------------------------------\r\n    \r\n    # # loadtxt Ver-----------------------------------------------\r\n    # dataset \u003d np.loadtxt(filename, delimiter\u003d\",\",skiprows\u003d1, dtype\u003d{\r\n    #     \u0027names\u0027: (\"OpenTime\",\"Open\",\"High\",\"Low\",\"Close\",\"Volume\",\"CloseTime\",\"QuoteAssetVolume\",\"NumOfTrades\",\"TakerBuyBaseAssetVolume\",\"TakeBuyQuoteAssetVolum\",\"Ignore\"),\r\n    #     \u0027formats\u0027:(\u0027f\u0027,\u0027f\u0027,\u0027f\u0027,\u0027f\u0027,\u0027f\u0027,\u0027f\u0027,\u0027f\u0027,\u0027f\u0027,\u0027i\u0027,\u0027f\u0027,\u0027f\u0027,\u0027f\u0027)},\r\n    #     usecols \u003d (1,2,3,4,5,6,7,8,9,10,11,12))\r\n    # # ---------------------------------------------------------\r\n    return dataset",
+      "text": "def dataLoad(filename):\r\n    # Origin Ver-------------------------------------------\r\n    fp \u003d open(filename, \u0027r\u0027)\r\n    csv_reader \u003d csv.reader(fp)\r\n    btcusdt_data \u003d []\r\n    for row in csv_reader:\r\n        btcusdt_data.append(row)\r\n    # btcusdt_data \u003d np.genfromtxt(filename,delimiter\u003d\u0027,\u0027).transpose()\r\n    del btcusdt_data[0] #인덱스 역할 컬럼 제거\r\n    \r\n    \r\n    for row in btcusdt_data: #Open time\r\n        del row[0] # Open time\r\n        del row[6] # Close time 제거\r\n    dataset \u003d []\r\n    for data in btcusdt_data:\r\n        data_point \u003d []\r\n        is_null \u003d False\r\n        for element in data[1:]:\r\n            if element \u003d\u003d \u0027null\u0027:\r\n                is_null \u003d True\r\n            else:\r\n                data_point.append(float(element))\r\n        if is_null:\r\n            continue\r\n        dataset.append(np.array(data_point))\r\n    dataset \u003d np.array(dataset)\r\n    temp\u003d np.array(dataset)\r\n    # ---------------------------------------------------------------\r\n    \r\n    # # loadtxt Ver-----------------------------------------------\r\n    # dataset \u003d np.loadtxt(filename, delimiter\u003d\",\",skiprows\u003d1, dtype\u003d{\r\n    #     \u0027names\u0027: (\"OpenTime\",\"Open\",\"High\",\"Low\",\"Close\",\"Volume\",\"CloseTime\",\"QuoteAssetVolume\",\"NumOfTrades\",\"TakerBuyBaseAssetVolume\",\"TakeBuyQuoteAssetVolum\",\"Ignore\"),\r\n    #     \u0027formats\u0027:(\u0027f\u0027,\u0027f\u0027,\u0027f\u0027,\u0027f\u0027,\u0027f\u0027,\u0027f\u0027,\u0027f\u0027,\u0027f\u0027,\u0027i\u0027,\u0027f\u0027,\u0027f\u0027,\u0027f\u0027)},\r\n    #     usecols \u003d (1,2,3,4,5,6,7,8,9,10,11,12))\r\n    # # ---------------------------------------------------------\r\n    # return dataset\r\n    return dataset [:,0:5]",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-06 21:38:49.152",
+      "dateUpdated": "2018-11-08 23:14:55.621",
       "config": {
         "colWidth": 12.0,
         "fontSize": 9.0,
@@ -291,8 +291,8 @@
       "jobName": "paragraph_1541391359498_-792520098",
       "id": "20181105-131559_602410446",
       "dateCreated": "2018-11-05 13:15:59.498",
-      "dateStarted": "2018-11-06 21:38:49.167",
-      "dateFinished": "2018-11-06 21:38:49.175",
+      "dateStarted": "2018-11-08 23:14:55.636",
+      "dateFinished": "2018-11-08 23:14:55.643",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -522,7 +522,7 @@
       "title": "def model(inputs_ph, init_state, seq_len, out_seq_len, sizeOfColumns):",
       "text": "def model(inputs_ph, init_state, seq_len, out_seq_len, sizeOfColumns):\r\n   \u0027\u0027\u0027\r\n   arguments:\r\n      inputs_ph: input placeholder\r\n      init_state: 초기 상태 placeholder\r\n      seq_len: input의 time 길이\r\n      out_seq_len: output의 time 길이\r\n   return:\r\n      softmax result\r\n   \u0027\u0027\u0027\r\n   with tf.variable_scope(\u0027rnn\u0027) as scope:\r\n      # encoder\r\n      rc1 \u003d init_state\r\n      for i in range(seq_len):\r\n         input_prev \u003d tf.concat([inputs_ph[i], rc1], 1)\r\n         rc1 \u003d fully_connected_layer(input_prev, NODE_NUM, \u0027rc1\u0027)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         logits \u003d fully_connected_layer(rc1, sizeOfColumns, \u0027logits\u0027)\r\n\r\n         if i\u003d\u003d0:\r\n            tf.get_variable_scope().reuse_variables()\r\n\r\n      # decoder\r\n      logits_list \u003d [tf.reshape(logits, (-1, 1, sizeOfColumns))]\r\n      for i in range(out_seq_len-1):\r\n         input_prev \u003d tf.concat([logits, rc1], 1)\r\n         rc1 \u003d fully_connected_layer(input_prev, NODE_NUM, \u0027rc1\u0027)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         logits \u003d fully_connected_layer(rc1, sizeOfColumns, \u0027logits\u0027)\r\n         logits_list.append(tf.reshape(logits, (-1, 1, sizeOfColumns)))\r\n\r\n      result \u003d tf.concat(logits_list, axis\u003d1)\r\n\r\n   return result",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-06 21:39:03.268",
+      "dateUpdated": "2018-11-08 23:15:03.932",
       "config": {
         "colWidth": 6.0,
         "fontSize": 9.0,
@@ -549,8 +549,8 @@
       "jobName": "paragraph_1541391396025_-680878935",
       "id": "20181105-131636_192069966",
       "dateCreated": "2018-11-05 13:16:36.025",
-      "dateStarted": "2018-11-06 21:39:03.282",
-      "dateFinished": "2018-11-06 21:39:03.289",
+      "dateStarted": "2018-11-08 23:15:03.947",
+      "dateFinished": "2018-11-08 23:15:03.952",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -558,7 +558,7 @@
       "title": "def timeSlicer(dataset):",
       "text": "def timeSlicer(dataset):\r\n    seg_start \u003d 0\r\n    seg_end \u003d 100 #시계열 사이즈 셋팅 \r\n    train_size\u003d1500 #트레인으로 몇개 쓸 지\r\n    num_of_pred\u003d30 #캔들 몇개 예측할 지 \r\n    inputs \u003d []\r\n    labels \u003d []\r\n    while seg_end + num_of_pred \u003c\u003d len(dataset):\r\n        input_segment \u003d dataset[seg_start:seg_end]\r\n        label_segment \u003d dataset[seg_end:seg_end+num_of_pred]\r\n        inputs.append(input_segment)\r\n        labels.append(label_segment)\r\n        seg_start +\u003d 1\r\n        seg_end +\u003d 1\r\n    inputs \u003d np.array(inputs)\r\n    labels \u003d np.array(labels)\r\n\r\n    train_input \u003d inputs[:train_size]\r\n    train_label \u003d labels[:train_size]\r\n\r\n    test_input \u003d inputs[train_size:]\r\n    test_label \u003d labels[train_size:]\r\n\r\n    return train_input, train_label, test_input, test_label",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-06 21:39:05.134",
+      "dateUpdated": "2018-11-08 23:15:05.346",
       "config": {
         "colWidth": 6.0,
         "fontSize": 9.0,
@@ -585,8 +585,8 @@
       "jobName": "paragraph_1541399757310_1169277784",
       "id": "20181105-153557_744665542",
       "dateCreated": "2018-11-05 15:35:57.310",
-      "dateStarted": "2018-11-06 21:39:05.148",
-      "dateFinished": "2018-11-06 21:39:05.153",
+      "dateStarted": "2018-11-08 23:15:05.360",
+      "dateFinished": "2018-11-08 23:15:05.365",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -594,7 +594,7 @@
       "title": "def read_data():",
       "text": "def read_data():\r\n   dataset \u003d dataLoad(\"/home/scio/Desktop/bot/data/4klines.csv\")\r\n   train_input, train_label, test_input, test_label \u003d timeSlicer(dataset)\r\n   return train_input, train_label, test_input, test_label",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-06 21:39:07.130",
+      "dateUpdated": "2018-11-08 23:15:07.466",
       "config": {
         "colWidth": 6.0,
         "fontSize": 9.0,
@@ -621,8 +621,8 @@
       "jobName": "paragraph_1541399707968_-1647000022",
       "id": "20181105-153507_259299626",
       "dateCreated": "2018-11-05 15:35:07.968",
-      "dateStarted": "2018-11-06 21:39:07.144",
-      "dateFinished": "2018-11-06 21:39:07.147",
+      "dateStarted": "2018-11-08 23:15:07.481",
+      "dateFinished": "2018-11-08 23:15:07.484",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -630,7 +630,7 @@
       "title": "def fully_connected_layer(input_tensor, out_node_num, name)",
       "text": "def fully_connected_layer(input_tensor, out_node_num, name):\r\n   input_dim \u003d input_tensor.shape.as_list()\r\n   W \u003d tf.get_variable(name\u003dname+\u0027_weights\u0027, shape\u003d[input_dim[1], out_node_num])\r\n   b \u003d tf.get_variable(name\u003dname+\u0027_biases\u0027, shape\u003d[out_node_num])\r\n   result \u003d tf.matmul(input_tensor, W) + b\r\n   return result",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-06 21:39:09.246",
+      "dateUpdated": "2018-11-08 23:15:09.321",
       "config": {
         "colWidth": 6.0,
         "fontSize": 9.0,
@@ -657,8 +657,8 @@
       "jobName": "paragraph_1541399697335_1706446910",
       "id": "20181105-153457_1592327053",
       "dateCreated": "2018-11-05 15:34:57.335",
-      "dateStarted": "2018-11-06 21:39:09.260",
-      "dateFinished": "2018-11-06 21:39:09.264",
+      "dateStarted": "2018-11-08 23:15:09.338",
+      "dateFinished": "2018-11-08 23:15:09.342",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -666,7 +666,7 @@
       "title": "def objective_graph(prediction, labels):",
       "text": "def objective_graph(prediction, labels):\r\n   lsm \u003d tf.reduce_mean(tf.reduce_sum(tf.square(prediction - labels), [1, 2]))\r\n   return lsm",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-06 21:39:14.177",
+      "dateUpdated": "2018-11-08 23:15:10.906",
       "config": {
         "colWidth": 6.0,
         "fontSize": 9.0,
@@ -693,8 +693,8 @@
       "jobName": "paragraph_1541399775199_-1946463458",
       "id": "20181105-153615_435669730",
       "dateCreated": "2018-11-05 15:36:15.199",
-      "dateStarted": "2018-11-06 21:39:14.193",
-      "dateFinished": "2018-11-06 21:39:14.196",
+      "dateStarted": "2018-11-08 23:15:10.921",
+      "dateFinished": "2018-11-08 23:15:10.923",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -702,7 +702,7 @@
       "title": "사이즈 정의",
       "text": "NODE_NUM \u003d 512\r\nSEQ_LEN \u003d 100 #시계열 사이즈 셋팅\r\nOUT_SEQ_LEN \u003d 30 #캔들 몇개 예측할지\r\n# plt.ion()\r\n# fig \u003d plt.figure(1)\r\ntrain_input, train_label, test_input, test_label \u003d read_data()",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-06 23:55:28.224",
+      "dateUpdated": "2018-11-08 23:15:12.288",
       "config": {
         "colWidth": 6.0,
         "fontSize": 9.0,
@@ -730,8 +730,8 @@
       "jobName": "paragraph_1541399792401_449171082",
       "id": "20181105-153632_1835726322",
       "dateCreated": "2018-11-05 15:36:32.401",
-      "dateStarted": "2018-11-06 23:55:28.239",
-      "dateFinished": "2018-11-06 23:55:28.268",
+      "dateStarted": "2018-11-08 23:15:12.301",
+      "dateFinished": "2018-11-08 23:15:12.327",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -739,7 +739,7 @@
       "title": "데이터 가공",
       "text": "sizeOfColumns \u003d np.shape(train_input)[2]\r\ninputs \u003d tf.placeholder(tf.float32, [None, SEQ_LEN, sizeOfColumns])\r\n\r\ninputs_max \u003d tf.reduce_max(inputs, 1, True)\r\ninputs_min \u003d tf.reduce_min(inputs, 1, True)\r\nnormed_inputs \u003d (inputs - inputs_min) / (inputs_max - inputs_min)\r\n\r\ninputs_t \u003d tf.transpose(normed_inputs, [1, 0, 2])\r\ninputs_r \u003d tf.reshape(inputs_t, [-1, sizeOfColumns])\r\n\r\ninputs_s \u003d tf.split(inputs_r, SEQ_LEN, axis\u003d0)\r\n\r\ninit_state \u003d tf.placeholder(tf.float32, [None, NODE_NUM])\r\nlabels \u003d tf.placeholder(tf.float32, [None, OUT_SEQ_LEN, sizeOfColumns])\r\nsizeOfColumns",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-06 21:39:28.429",
+      "dateUpdated": "2018-11-08 23:15:14.088",
       "config": {
         "colWidth": 12.0,
         "fontSize": 9.0,
@@ -763,7 +763,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "10\n"
+            "data": "5\n"
           }
         ]
       },
@@ -771,8 +771,8 @@
       "jobName": "paragraph_1541399799626_1347465942",
       "id": "20181105-153639_1979356093",
       "dateCreated": "2018-11-05 15:36:39.626",
-      "dateStarted": "2018-11-06 21:39:28.443",
-      "dateFinished": "2018-11-06 21:39:28.462",
+      "dateStarted": "2018-11-08 23:15:14.102",
+      "dateFinished": "2018-11-08 23:15:14.124",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -780,7 +780,7 @@
       "title": "Only one run",
       "text": "normed_labels \u003d (labels - inputs_min) / (inputs_max - inputs_min)\r\n\r\nprediction \u003d model(inputs_s, init_state, SEQ_LEN, OUT_SEQ_LEN, sizeOfColumns)\r\nloss \u003d objective_graph(prediction, normed_labels)\r\n\r\ntrain_vars \u003d tf.trainable_variables()\r\nfor var in train_vars:\r\n   print(var.name)\r\n\r\n# train_op \u003d tf.train.GradientDescentOptimizer(1e-4).minimize(loss)\r\n# train_op \u003d tf.train.AdagradOptimizer(1e-4).minimize(loss)\r\ntrain_op \u003d tf.train.AdamOptimizer(1e-4).minimize(loss)\r\ninit_op \u003d tf.global_variables_initializer()",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-06 21:39:33.427",
+      "dateUpdated": "2018-11-08 23:15:16.582",
       "config": {
         "colWidth": 12.0,
         "fontSize": 9.0,
@@ -812,15 +812,15 @@
       "jobName": "paragraph_1541399806937_559846768",
       "id": "20181105-153646_6830200",
       "dateCreated": "2018-11-05 15:36:46.937",
-      "dateStarted": "2018-11-06 21:39:33.442",
-      "dateFinished": "2018-11-06 21:39:35.953",
+      "dateStarted": "2018-11-08 23:15:16.596",
+      "dateFinished": "2018-11-08 23:15:19.171",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
       "text": "r\u003d50\r\nlsm_scalar \u003d tf.summary.scalar(\u0027loss\u0027,loss) #tensorboard\r\nsummary\u003dtf.summary.merge_all() #tensorboard\r\nsaver \u003d tf.train.Saver()\r\nwith tf.Session(config\u003dtf.ConfigProto(log_device_placement\u003dFalse)) as sess:\r\n    with tf.device(\u0027/cpu:0\u0027):\r\n        sess.run(init_op)\r\n        writer \u003d tf.summary.FileWriter(\u0027./train/100_30\u0027,sess.graph) #tensorboard\r\n        for step in range(r):\r\n\r\n            shuffle_index \u003d np.random.permutation(len(train_input))\r\n            batch_xs \u003d train_input[shuffle_index[:100]]\r\n            batch_ys \u003d train_label[shuffle_index[:100]]\r\n            feed_dict \u003d {}\r\n            feed_dict[inputs] \u003d batch_xs\r\n            feed_dict[labels] \u003d batch_ys\r\n\r\n            init_state_value \u003d np.zeros([len(batch_ys), NODE_NUM])\r\n            feed_dict[init_state] \u003d init_state_value\r\n            sess.run(train_op, feed_dict\u003dfeed_dict)\r\n            \r\n            input_value \u003d sess.run(normed_inputs, feed_dict\u003dfeed_dict)\r\n            label_value \u003d sess.run(normed_labels, feed_dict\u003dfeed_dict)\r\n            pred_value \u003d sess.run(prediction, feed_dict\u003dfeed_dict)\r\n            loss_value \u003d sess.run(loss, feed_dict\u003dfeed_dict)\r\n            if step % (r/10) \u003d\u003d 0:\r\n                print(\"--------------------------------------------------\")\r\n                print(step,\u0027step train loss value: \u0027, loss_value)\r\n            show_loss \u003d sess.run(lsm_scalar, feed_dict\u003dfeed_dict) #tensorboard\r\n            writer.add_summary(show_loss, step) #tensorboard\r\n        # saver.save(sess, \u0027/home/scio/Desktop/bot/seq2seq/model/100_30_1000000\u0027)\r\n",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-06 23:10:48.007",
+      "dateUpdated": "2018-11-08 23:15:23.420",
       "config": {
         "colWidth": 12.0,
         "fontSize": 9.0,
@@ -843,7 +843,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "2018-11-06 23:08:54.479770: E tensorflow/core/grappler/optimizers/dependency_optimizer.cc:666] Iteration \u003d 0, topological sort failed with message: The graph couldn\u0027t be sorted in topological order.\n2018-11-06 23:08:54.518536: E tensorflow/core/grappler/optimizers/dependency_optimizer.cc:666] Iteration \u003d 1, topological sort failed with message: The graph couldn\u0027t be sorted in topological order.\n2018-11-06 23:08:54.694137: E tensorflow/core/grappler/optimizers/dependency_optimizer.cc:666] Iteration \u003d 0, topological sort failed with message: The graph couldn\u0027t be sorted in topological order.\n2018-11-06 23:08:54.715334: E tensorflow/core/grappler/optimizers/dependency_optimizer.cc:666] Iteration \u003d 1, topological sort failed with message: The graph couldn\u0027t be sorted in topological order.\n--------------------------------------------------\n{}st step train loss value:  0 nan\n--------------------------------------------------\n{}st step train loss value:  5 nan\n--------------------------------------------------\n{}st step train loss value:  10 nan\n--------------------------------------------------\n{}st step train loss value:  15 nan\n--------------------------------------------------\n{}st step train loss value:  20 nan\n--------------------------------------------------\n{}st step train loss value:  25 nan\n--------------------------------------------------\n{}st step train loss value:  30 nan\n--------------------------------------------------\n{}st step train loss value:  35 nan\n--------------------------------------------------\n{}st step train loss value:  40 nan\n--------------------------------------------------\n{}st step train loss value:  45 nan\n"
+            "data": "2018-11-08 23:15:23.452472: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA\n2018-11-08 23:15:23.453736: I tensorflow/core/common_runtime/process_util.cc:69] Creating new thread pool with default inter op setting: 2. Tune using inter_op_parallelism_threads for best performance.\n2018-11-08 23:15:24.352255: E tensorflow/core/grappler/optimizers/dependency_optimizer.cc:666] Iteration \u003d 0, topological sort failed with message: The graph couldn\u0027t be sorted in topological order.\n2018-11-08 23:15:24.389415: E tensorflow/core/grappler/optimizers/dependency_optimizer.cc:666] Iteration \u003d 1, topological sort failed with message: The graph couldn\u0027t be sorted in topological order.\n2018-11-08 23:15:24.702229: E tensorflow/core/grappler/optimizers/dependency_optimizer.cc:666] Iteration \u003d 0, topological sort failed with message: The graph couldn\u0027t be sorted in topological order.\n2018-11-08 23:15:24.724049: E tensorflow/core/grappler/optimizers/dependency_optimizer.cc:666] Iteration \u003d 1, topological sort failed with message: The graph couldn\u0027t be sorted in topological order.\n--------------------------------------------------\n0 step train loss value:  96.269104\n--------------------------------------------------\n5 step train loss value:  45.168983\n--------------------------------------------------\n10 step train loss value:  26.752066\n--------------------------------------------------\n15 step train loss value:  32.836834\n--------------------------------------------------\n20 step train loss value:  24.493275\n--------------------------------------------------\n25 step train loss value:  25.789488\n--------------------------------------------------\n30 step train loss value:  30.666533\n--------------------------------------------------\n35 step train loss value:  21.736143\n--------------------------------------------------\n40 step train loss value:  21.317999\n--------------------------------------------------\n45 step train loss value:  17.220966\n"
           }
         ]
       },
@@ -851,14 +851,27 @@
       "jobName": "paragraph_1541503720505_1995577585",
       "id": "20181106-202840_379827171",
       "dateCreated": "2018-11-06 20:28:40.505",
-      "dateStarted": "2018-11-06 23:08:53.665",
-      "dateFinished": "2018-11-06 23:09:28.412",
+      "dateStarted": "2018-11-08 23:15:23.434",
+      "dateFinished": "2018-11-08 23:15:46.805",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
+      "text": "for i in range(len(test_label)):\n\tplt.cla()\n\tplt.plot(range(-99, 1), input_value[i, :, 1], \u0027b\u0027)\n\tplt.plot(range(1, 31), label_value[i, :, 1], \u0027g\u0027)\n\tplt.plot(range(1, 31), pred_value[i, :, 1], \u0027r--\u0027)\n\tplt.title(\u0027test\u0027)\n\tpath\u003d\"/home/scio/Desktop/bot/seq2seq/100_30_100000_5/\"+\"test\"+str(i)+\".png\"\n\tplt.savefig(path)\n\t\t",
       "user": "ghsehr1",
-      "config": {},
+      "dateUpdated": "2018-11-08 23:16:28.081",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
       "settings": {
         "params": {},
         "forms": {}
