@@ -44,7 +44,7 @@
       "title": "선언",
       "text": "import sys\nimport tensorflow as tf\nimport pandas as pd\nimport json\nfrom pprint import pprint as p\nimport os\nimport matplotlib.pyplot as plt\nimport numpy as np\nimport datetime\nimport time\nimport tensorflow as tf\nimport numpy as np\nfrom binance.client import Client\nfrom datetime import datetime\nimport csv\n\ndef __Api__():\n    f \u003d open(\"/home/scio/zepl/conf/API_KEY\", \u0027r\u0027)\n    line \u003d f.readline()\n    f.close()\n    return line\ndef __Sign__():\n    f \u003d open(\"/home/scio/zepl/conf/SECRET_KEY\", \u0027r\u0027)\n    line \u003d f.readline()\n    f.close()\n    return line\n    \nprint(\u0027python version is\u0027,sys.version.split()[0],sys.version.split()[1],sys.version.split()[2])\nprint(\u0027tensorflow version is\u0027,tf.__version__)",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-08 23:10:48.289",
+      "dateUpdated": "2018-11-10 17:41:46.593",
       "config": {
         "colWidth": 6.0,
         "fontSize": 9.0,
@@ -68,7 +68,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "python version is 3.6.7 |Anaconda, Inc.|\ntensorflow version is 1.11.0\n"
+            "data": "python version is 3.5.6 |Anaconda, Inc.|\ntensorflow version is 1.12.0\n"
           }
         ]
       },
@@ -76,8 +76,8 @@
       "jobName": "paragraph_1541391240402_-1901672382",
       "id": "20181105-131400_841283194",
       "dateCreated": "2018-11-05 13:14:00.402",
-      "dateStarted": "2018-11-08 23:10:48.305",
-      "dateFinished": "2018-11-08 23:10:49.080",
+      "dateStarted": "2018-11-10 17:41:46.619",
+      "dateFinished": "2018-11-10 17:41:46.701",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -85,7 +85,7 @@
       "title": "API를 이용한 Kline(CandleSticks) 호출 및 저장",
       "text": "BTC\u003d\u0027BTCUSDT\u0027\nclient \u003d Client(__Api__(),__Sign__())\nklines_orig \u003d client.get_historical_klines(BTC, \u00274h\u0027, \"1 Jul, 2014\")\n\nfor i in range(len(klines_orig)):\n    # klines_orig[i][0]\u003ddatetime.fromtimestamp(klines_orig[i][0]/1000).strftime(\u0027%Y-%m-%d %H:%M\u0027)\n    # klines_orig[i][6]\u003ddatetime.fromtimestamp(klines_orig[i][6]/1000).strftime(\u0027%Y-%m-%d %H:%M\u0027)\n    klines_orig[i][0]\u003dint(datetime.fromtimestamp(klines_orig[i][0]/1000).strftime(\u0027%Y%m%d%H%M\u0027))\n    klines_orig[i][6]\u003dint(datetime.fromtimestamp(klines_orig[i][6]/1000).strftime(\u0027%Y%m%d%H%M\u0027))\nklines\u003dnp.array(klines_orig)\n# klines\u003dklines[:,1:6]\n\ndf\u003dpd.DataFrame(klines)\n# To JSON\nwith open(\"/home/scio/Desktop/bot/data/4klines.json\", \u0027w\u0027) as f:\n    f.write(df.to_json(orient\u003d\u0027records\u0027, lines\u003dTrue))\n    \n# To CSV\ndf.to_csv(\"/home/scio/Desktop/bot/data/4klines.csv\",sep\u003d\u0027,\u0027)\nprint(\"shape is\",klines.shape)\n\nchart\u003d client.get_historical_klines(BTC, \"12h\", \"1 Jul, 2014\")\nfor i in range(len(chart)):\n    chart[i][0]\u003ddatetime.fromtimestamp(chart[i][0]/1000).strftime(\u0027%Y-%m-%d %H:%M\u0027)\n",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-08 23:05:42.528",
+      "dateUpdated": "2018-11-10 17:33:39.875",
       "config": {
         "colWidth": 6.0,
         "fontSize": 9.0,
@@ -141,7 +141,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "shape is (2680, 12)\n"
+            "data": "shape is (2691, 12)\n"
           }
         ]
       },
@@ -149,8 +149,8 @@
       "jobName": "paragraph_1541500891903_-1878392287",
       "id": "20181106-194131_1887673035",
       "dateCreated": "2018-11-06 19:41:31.903",
-      "dateStarted": "2018-11-08 23:05:44.076",
-      "dateFinished": "2018-11-08 23:05:54.902",
+      "dateStarted": "2018-11-10 17:33:39.909",
+      "dateFinished": "2018-11-10 17:33:41.891",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -158,7 +158,7 @@
       "title": "암호화폐(비트코인) 차트",
       "text": "z.show(pd.DataFrame(chart))",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-08 23:09:48.148",
+      "dateUpdated": "2018-11-10 17:29:06.864",
       "config": {
         "colWidth": 12.0,
         "fontSize": 9.0,
@@ -261,10 +261,50 @@
       "progressUpdateIntervalMs": 500
     },
     {
-      "title": "def dataLoad(filename)",
-      "text": "def dataLoad(filename):\r\n    # Origin Ver-------------------------------------------\r\n    fp \u003d open(filename, \u0027r\u0027)\r\n    csv_reader \u003d csv.reader(fp)\r\n    btcusdt_data \u003d []\r\n    for row in csv_reader:\r\n        btcusdt_data.append(row)\r\n    # btcusdt_data \u003d np.genfromtxt(filename,delimiter\u003d\u0027,\u0027).transpose()\r\n    del btcusdt_data[0] #인덱스 역할 컬럼 제거\r\n    \r\n    \r\n    for row in btcusdt_data: #Open time\r\n        del row[0] # Open time\r\n        del row[6] # Close time 제거\r\n    dataset \u003d []\r\n    for data in btcusdt_data:\r\n        data_point \u003d []\r\n        is_null \u003d False\r\n        for element in data[1:]:\r\n            if element \u003d\u003d \u0027null\u0027:\r\n                is_null \u003d True\r\n            else:\r\n                data_point.append(float(element))\r\n        if is_null:\r\n            continue\r\n        dataset.append(np.array(data_point))\r\n    dataset \u003d np.array(dataset)\r\n    temp\u003d np.array(dataset)\r\n    # ---------------------------------------------------------------\r\n    \r\n    # # loadtxt Ver-----------------------------------------------\r\n    # dataset \u003d np.loadtxt(filename, delimiter\u003d\",\",skiprows\u003d1, dtype\u003d{\r\n    #     \u0027names\u0027: (\"OpenTime\",\"Open\",\"High\",\"Low\",\"Close\",\"Volume\",\"CloseTime\",\"QuoteAssetVolume\",\"NumOfTrades\",\"TakerBuyBaseAssetVolume\",\"TakeBuyQuoteAssetVolum\",\"Ignore\"),\r\n    #     \u0027formats\u0027:(\u0027f\u0027,\u0027f\u0027,\u0027f\u0027,\u0027f\u0027,\u0027f\u0027,\u0027f\u0027,\u0027f\u0027,\u0027f\u0027,\u0027i\u0027,\u0027f\u0027,\u0027f\u0027,\u0027f\u0027)},\r\n    #     usecols \u003d (1,2,3,4,5,6,7,8,9,10,11,12))\r\n    # # ---------------------------------------------------------\r\n    # return dataset\r\n    return dataset [:,0:5]",
+      "text": "%md\n현재 dataLoad의 return은 7가지 피쳐(OHLC, QuoteAssetVolume, NumOfTrades)만을 리턴하고있다.\n전체 피쳐를 리턴하여 트레이닝 할 경우 loss가 nan이 나온다. normalization의 문제로 추정 中",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-08 23:14:55.621",
+      "dateUpdated": "2018-11-10 16:29:01.051",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003e현재 dataLoad의 return은 7가지 피쳐(OHLC, QuoteAssetVolume, NumOfTrades)만을 리턴하고있다.\u003cbr/\u003e전체 피쳐를 리턴하여 트레이닝 할 경우 loss가 nan이 나온다. normalization의 문제로 추정 中\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1541834780358_1490613654",
+      "id": "20181110-162620_961028620",
+      "dateCreated": "2018-11-10 16:26:20.358",
+      "dateStarted": "2018-11-10 16:29:01.051",
+      "dateFinished": "2018-11-10 16:29:01.058",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "def dataLoad(filename)",
+      "text": "def dataLoad(filename):\r\n    # Origin Ver-------------------------------------------\r\n    fp \u003d open(filename, \u0027r\u0027)\r\n    csv_reader \u003d csv.reader(fp)\r\n    btcusdt_data \u003d []\r\n    for row in csv_reader:\r\n        btcusdt_data.append(row)\r\n    # btcusdt_data \u003d np.genfromtxt(filename,delimiter\u003d\u0027,\u0027).transpose()\r\n    del btcusdt_data[0] #인덱스 역할 컬럼 제거\r\n    \r\n    \r\n    for row in btcusdt_data: #Open time\r\n        del row[0] # Open time\r\n        del row[6] # Close time 제거\r\n    dataset \u003d []\r\n    for data in btcusdt_data:\r\n        data_point \u003d []\r\n        is_null \u003d False\r\n        for element in data[1:]:\r\n            if element \u003d\u003d \u0027null\u0027:\r\n                is_null \u003d True\r\n            else:\r\n                data_point.append(float(element))\r\n        if is_null:\r\n            continue\r\n        dataset.append(np.array(data_point))\r\n    dataset \u003d np.array(dataset)\r\n    temp\u003d np.array(dataset)\r\n    # ---------------------------------------------------------------\r\n    \r\n    # # loadtxt Ver-----------------------------------------------\r\n    # dataset \u003d np.loadtxt(filename, delimiter\u003d\",\",skiprows\u003d1, dtype\u003d{\r\n    #     \u0027names\u0027: (\"OpenTime\",\"Open\",\"High\",\"Low\",\"Close\",\"Volume\",\"CloseTime\",\"QuoteAssetVolume\",\"NumOfTrades\",\"TakerBuyBaseAssetVolume\",\"TakeBuyQuoteAssetVolum\",\"Ignore\"),\r\n    #     \u0027formats\u0027:(\u0027f\u0027,\u0027f\u0027,\u0027f\u0027,\u0027f\u0027,\u0027f\u0027,\u0027f\u0027,\u0027f\u0027,\u0027f\u0027,\u0027i\u0027,\u0027f\u0027,\u0027f\u0027,\u0027f\u0027)},\r\n    #     usecols \u003d (1,2,3,4,5,6,7,8,9,10,11,12))\r\n    # # ---------------------------------------------------------\r\n    # return dataset\r\n    return dataset [:,0:7]",
+      "user": "ghsehr1",
+      "dateUpdated": "2018-11-10 17:29:39.487",
       "config": {
         "colWidth": 12.0,
         "fontSize": 9.0,
@@ -291,8 +331,8 @@
       "jobName": "paragraph_1541391359498_-792520098",
       "id": "20181105-131559_602410446",
       "dateCreated": "2018-11-05 13:15:59.498",
-      "dateStarted": "2018-11-08 23:14:55.636",
-      "dateFinished": "2018-11-08 23:14:55.643",
+      "dateStarted": "2018-11-10 17:29:39.548",
+      "dateFinished": "2018-11-10 17:29:39.663",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -340,11 +380,11 @@
       "title": "Candle Stick Data Format",
       "text": "dataset \u003d dataLoad(\"/home/scio/Desktop/bot/data/4klines.csv\")\nprint(\"Shape of Candle Sticks is\",np.shape(dataset))\nprint(\"Type of Candle Sticks is\",type(dataset))\ndf \u003d pd.DataFrame(dataset).rename(columns\u003d{0:\u0027Open\u0027,1:\u0027High\u0027,2:\u0027Low\u0027,3:\u0027Close\u0027,4:\u0027Volume\u0027,5:\u0027QuoteAssetVolume\u0027,6:\u0027NumOfTrades\u0027,7:\u0027TakerBuyBaseAssetVolume\u0027,8:\u0027TakeBuyQuoteAssetVolum\u0027,9:\u0027Ignore\u0027})\n# df \u003d pd.DataFrame(dataset).rename(columns\u003d{0: \u0027OpenTime\u0027,1:\u0027Open\u0027,2:\u0027High\u0027,3:\u0027Low\u0027,4:\u0027Close\u0027,5:\u0027Volume\u0027,6:\u0027CLose Time\u0027,7:\u0027QuoteAssetVolume\u0027,8:\u0027NumOfTrades\u0027,9:\u0027TakerBuyBaseAssetVolume\u0027,10:\u0027TakeBuyQuoteAssetVolum\u0027,11:\u0027Ignore\u0027})\nz.show(df[0:7])",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-06 21:38:52.545",
+      "dateUpdated": "2018-11-09 22:50:09.447",
       "config": {
         "colWidth": 12.0,
         "fontSize": 9.0,
-        "enabled": true,
+        "enabled": false,
         "results": {
           "0": {
             "graph": {
@@ -522,7 +562,7 @@
       "title": "def model(inputs_ph, init_state, seq_len, out_seq_len, sizeOfColumns):",
       "text": "def model(inputs_ph, init_state, seq_len, out_seq_len, sizeOfColumns):\r\n   \u0027\u0027\u0027\r\n   arguments:\r\n      inputs_ph: input placeholder\r\n      init_state: 초기 상태 placeholder\r\n      seq_len: input의 time 길이\r\n      out_seq_len: output의 time 길이\r\n   return:\r\n      softmax result\r\n   \u0027\u0027\u0027\r\n   with tf.variable_scope(\u0027rnn\u0027) as scope:\r\n      # encoder\r\n      rc1 \u003d init_state\r\n      for i in range(seq_len):\r\n         input_prev \u003d tf.concat([inputs_ph[i], rc1], 1)\r\n         rc1 \u003d fully_connected_layer(input_prev, NODE_NUM, \u0027rc1\u0027)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         logits \u003d fully_connected_layer(rc1, sizeOfColumns, \u0027logits\u0027)\r\n\r\n         if i\u003d\u003d0:\r\n            tf.get_variable_scope().reuse_variables()\r\n\r\n      # decoder\r\n      logits_list \u003d [tf.reshape(logits, (-1, 1, sizeOfColumns))]\r\n      for i in range(out_seq_len-1):\r\n         input_prev \u003d tf.concat([logits, rc1], 1)\r\n         rc1 \u003d fully_connected_layer(input_prev, NODE_NUM, \u0027rc1\u0027)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         logits \u003d fully_connected_layer(rc1, sizeOfColumns, \u0027logits\u0027)\r\n         logits_list.append(tf.reshape(logits, (-1, 1, sizeOfColumns)))\r\n\r\n      result \u003d tf.concat(logits_list, axis\u003d1)\r\n\r\n   return result",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-08 23:15:03.932",
+      "dateUpdated": "2018-11-10 17:29:45.266",
       "config": {
         "colWidth": 6.0,
         "fontSize": 9.0,
@@ -549,8 +589,8 @@
       "jobName": "paragraph_1541391396025_-680878935",
       "id": "20181105-131636_192069966",
       "dateCreated": "2018-11-05 13:16:36.025",
-      "dateStarted": "2018-11-08 23:15:03.947",
-      "dateFinished": "2018-11-08 23:15:03.952",
+      "dateStarted": "2018-11-10 17:29:45.311",
+      "dateFinished": "2018-11-10 17:29:45.433",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -558,7 +598,7 @@
       "title": "def timeSlicer(dataset):",
       "text": "def timeSlicer(dataset):\r\n    seg_start \u003d 0\r\n    seg_end \u003d 100 #시계열 사이즈 셋팅 \r\n    train_size\u003d1500 #트레인으로 몇개 쓸 지\r\n    num_of_pred\u003d30 #캔들 몇개 예측할 지 \r\n    inputs \u003d []\r\n    labels \u003d []\r\n    while seg_end + num_of_pred \u003c\u003d len(dataset):\r\n        input_segment \u003d dataset[seg_start:seg_end]\r\n        label_segment \u003d dataset[seg_end:seg_end+num_of_pred]\r\n        inputs.append(input_segment)\r\n        labels.append(label_segment)\r\n        seg_start +\u003d 1\r\n        seg_end +\u003d 1\r\n    inputs \u003d np.array(inputs)\r\n    labels \u003d np.array(labels)\r\n\r\n    train_input \u003d inputs[:train_size]\r\n    train_label \u003d labels[:train_size]\r\n\r\n    test_input \u003d inputs[train_size:]\r\n    test_label \u003d labels[train_size:]\r\n\r\n    return train_input, train_label, test_input, test_label",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-08 23:15:05.346",
+      "dateUpdated": "2018-11-10 17:29:46.846",
       "config": {
         "colWidth": 6.0,
         "fontSize": 9.0,
@@ -585,8 +625,8 @@
       "jobName": "paragraph_1541399757310_1169277784",
       "id": "20181105-153557_744665542",
       "dateCreated": "2018-11-05 15:35:57.310",
-      "dateStarted": "2018-11-08 23:15:05.360",
-      "dateFinished": "2018-11-08 23:15:05.365",
+      "dateStarted": "2018-11-10 17:29:46.879",
+      "dateFinished": "2018-11-10 17:29:46.982",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -594,7 +634,7 @@
       "title": "def read_data():",
       "text": "def read_data():\r\n   dataset \u003d dataLoad(\"/home/scio/Desktop/bot/data/4klines.csv\")\r\n   train_input, train_label, test_input, test_label \u003d timeSlicer(dataset)\r\n   return train_input, train_label, test_input, test_label",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-08 23:15:07.466",
+      "dateUpdated": "2018-11-10 17:29:51.315",
       "config": {
         "colWidth": 6.0,
         "fontSize": 9.0,
@@ -621,8 +661,8 @@
       "jobName": "paragraph_1541399707968_-1647000022",
       "id": "20181105-153507_259299626",
       "dateCreated": "2018-11-05 15:35:07.968",
-      "dateStarted": "2018-11-08 23:15:07.481",
-      "dateFinished": "2018-11-08 23:15:07.484",
+      "dateStarted": "2018-11-10 17:29:51.352",
+      "dateFinished": "2018-11-10 17:29:51.459",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -630,7 +670,7 @@
       "title": "def fully_connected_layer(input_tensor, out_node_num, name)",
       "text": "def fully_connected_layer(input_tensor, out_node_num, name):\r\n   input_dim \u003d input_tensor.shape.as_list()\r\n   W \u003d tf.get_variable(name\u003dname+\u0027_weights\u0027, shape\u003d[input_dim[1], out_node_num])\r\n   b \u003d tf.get_variable(name\u003dname+\u0027_biases\u0027, shape\u003d[out_node_num])\r\n   result \u003d tf.matmul(input_tensor, W) + b\r\n   return result",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-08 23:15:09.321",
+      "dateUpdated": "2018-11-10 17:29:53.489",
       "config": {
         "colWidth": 6.0,
         "fontSize": 9.0,
@@ -657,8 +697,8 @@
       "jobName": "paragraph_1541399697335_1706446910",
       "id": "20181105-153457_1592327053",
       "dateCreated": "2018-11-05 15:34:57.335",
-      "dateStarted": "2018-11-08 23:15:09.338",
-      "dateFinished": "2018-11-08 23:15:09.342",
+      "dateStarted": "2018-11-10 17:29:53.521",
+      "dateFinished": "2018-11-10 17:29:53.618",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -666,7 +706,7 @@
       "title": "def objective_graph(prediction, labels):",
       "text": "def objective_graph(prediction, labels):\r\n   lsm \u003d tf.reduce_mean(tf.reduce_sum(tf.square(prediction - labels), [1, 2]))\r\n   return lsm",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-08 23:15:10.906",
+      "dateUpdated": "2018-11-10 17:33:50.903",
       "config": {
         "colWidth": 6.0,
         "fontSize": 9.0,
@@ -693,8 +733,8 @@
       "jobName": "paragraph_1541399775199_-1946463458",
       "id": "20181105-153615_435669730",
       "dateCreated": "2018-11-05 15:36:15.199",
-      "dateStarted": "2018-11-08 23:15:10.921",
-      "dateFinished": "2018-11-08 23:15:10.923",
+      "dateStarted": "2018-11-10 17:33:50.930",
+      "dateFinished": "2018-11-10 17:33:51.037",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -702,7 +742,7 @@
       "title": "사이즈 정의",
       "text": "NODE_NUM \u003d 512\r\nSEQ_LEN \u003d 100 #시계열 사이즈 셋팅\r\nOUT_SEQ_LEN \u003d 30 #캔들 몇개 예측할지\r\n# plt.ion()\r\n# fig \u003d plt.figure(1)\r\ntrain_input, train_label, test_input, test_label \u003d read_data()",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-08 23:15:12.288",
+      "dateUpdated": "2018-11-10 17:33:52.579",
       "config": {
         "colWidth": 6.0,
         "fontSize": 9.0,
@@ -730,8 +770,8 @@
       "jobName": "paragraph_1541399792401_449171082",
       "id": "20181105-153632_1835726322",
       "dateCreated": "2018-11-05 15:36:32.401",
-      "dateStarted": "2018-11-08 23:15:12.301",
-      "dateFinished": "2018-11-08 23:15:12.327",
+      "dateStarted": "2018-11-10 17:33:52.612",
+      "dateFinished": "2018-11-10 17:33:52.704",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -739,7 +779,7 @@
       "title": "데이터 가공",
       "text": "sizeOfColumns \u003d np.shape(train_input)[2]\r\ninputs \u003d tf.placeholder(tf.float32, [None, SEQ_LEN, sizeOfColumns])\r\n\r\ninputs_max \u003d tf.reduce_max(inputs, 1, True)\r\ninputs_min \u003d tf.reduce_min(inputs, 1, True)\r\nnormed_inputs \u003d (inputs - inputs_min) / (inputs_max - inputs_min)\r\n\r\ninputs_t \u003d tf.transpose(normed_inputs, [1, 0, 2])\r\ninputs_r \u003d tf.reshape(inputs_t, [-1, sizeOfColumns])\r\n\r\ninputs_s \u003d tf.split(inputs_r, SEQ_LEN, axis\u003d0)\r\n\r\ninit_state \u003d tf.placeholder(tf.float32, [None, NODE_NUM])\r\nlabels \u003d tf.placeholder(tf.float32, [None, OUT_SEQ_LEN, sizeOfColumns])\r\nsizeOfColumns",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-08 23:15:14.088",
+      "dateUpdated": "2018-11-10 17:33:56.106",
       "config": {
         "colWidth": 12.0,
         "fontSize": 9.0,
@@ -763,7 +803,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "5\n"
+            "data": "7"
           }
         ]
       },
@@ -771,8 +811,8 @@
       "jobName": "paragraph_1541399799626_1347465942",
       "id": "20181105-153639_1979356093",
       "dateCreated": "2018-11-05 15:36:39.626",
-      "dateStarted": "2018-11-08 23:15:14.102",
-      "dateFinished": "2018-11-08 23:15:14.124",
+      "dateStarted": "2018-11-10 17:33:56.128",
+      "dateFinished": "2018-11-10 17:33:56.204",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -780,7 +820,7 @@
       "title": "Only one run",
       "text": "normed_labels \u003d (labels - inputs_min) / (inputs_max - inputs_min)\r\n\r\nprediction \u003d model(inputs_s, init_state, SEQ_LEN, OUT_SEQ_LEN, sizeOfColumns)\r\nloss \u003d objective_graph(prediction, normed_labels)\r\n\r\ntrain_vars \u003d tf.trainable_variables()\r\nfor var in train_vars:\r\n   print(var.name)\r\n\r\n# train_op \u003d tf.train.GradientDescentOptimizer(1e-4).minimize(loss)\r\n# train_op \u003d tf.train.AdagradOptimizer(1e-4).minimize(loss)\r\ntrain_op \u003d tf.train.AdamOptimizer(1e-4).minimize(loss)\r\ninit_op \u003d tf.global_variables_initializer()",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-08 23:15:16.582",
+      "dateUpdated": "2018-11-10 17:33:58.650",
       "config": {
         "colWidth": 12.0,
         "fontSize": 9.0,
@@ -812,15 +852,94 @@
       "jobName": "paragraph_1541399806937_559846768",
       "id": "20181105-153646_6830200",
       "dateCreated": "2018-11-05 15:36:46.937",
-      "dateStarted": "2018-11-08 23:15:16.596",
-      "dateFinished": "2018-11-08 23:15:19.171",
+      "dateStarted": "2018-11-10 17:33:58.674",
+      "dateFinished": "2018-11-10 17:34:01.648",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
-      "text": "r\u003d50\r\nlsm_scalar \u003d tf.summary.scalar(\u0027loss\u0027,loss) #tensorboard\r\nsummary\u003dtf.summary.merge_all() #tensorboard\r\nsaver \u003d tf.train.Saver()\r\nwith tf.Session(config\u003dtf.ConfigProto(log_device_placement\u003dFalse)) as sess:\r\n    with tf.device(\u0027/cpu:0\u0027):\r\n        sess.run(init_op)\r\n        writer \u003d tf.summary.FileWriter(\u0027./train/100_30\u0027,sess.graph) #tensorboard\r\n        for step in range(r):\r\n\r\n            shuffle_index \u003d np.random.permutation(len(train_input))\r\n            batch_xs \u003d train_input[shuffle_index[:100]]\r\n            batch_ys \u003d train_label[shuffle_index[:100]]\r\n            feed_dict \u003d {}\r\n            feed_dict[inputs] \u003d batch_xs\r\n            feed_dict[labels] \u003d batch_ys\r\n\r\n            init_state_value \u003d np.zeros([len(batch_ys), NODE_NUM])\r\n            feed_dict[init_state] \u003d init_state_value\r\n            sess.run(train_op, feed_dict\u003dfeed_dict)\r\n            \r\n            input_value \u003d sess.run(normed_inputs, feed_dict\u003dfeed_dict)\r\n            label_value \u003d sess.run(normed_labels, feed_dict\u003dfeed_dict)\r\n            pred_value \u003d sess.run(prediction, feed_dict\u003dfeed_dict)\r\n            loss_value \u003d sess.run(loss, feed_dict\u003dfeed_dict)\r\n            if step % (r/10) \u003d\u003d 0:\r\n                print(\"--------------------------------------------------\")\r\n                print(step,\u0027step train loss value: \u0027, loss_value)\r\n            show_loss \u003d sess.run(lsm_scalar, feed_dict\u003dfeed_dict) #tensorboard\r\n            writer.add_summary(show_loss, step) #tensorboard\r\n        # saver.save(sess, \u0027/home/scio/Desktop/bot/seq2seq/model/100_30_1000000\u0027)\r\n",
+      "text": "from tensorflow.python.client import device_lib\ndevice_lib.list_local_devices()",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-08 23:15:23.420",
+      "dateUpdated": "2018-11-10 17:35:42.682",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "[name: \"/device:CPU:0\"\n device_type: \"CPU\"\n memory_limit: 268435456\n locality {\n }\n incarnation: 7846419781951770618, name: \"/device:XLA_GPU:0\"\n device_type: \"XLA_GPU\"\n memory_limit: 17179869184\n locality {\n }\n incarnation: 13694241633941962527\n physical_device_desc: \"device: XLA_GPU device\", name: \"/device:XLA_CPU:0\"\n device_type: \"XLA_CPU\"\n memory_limit: 17179869184\n locality {\n }\n incarnation: 2895544218552947733\n physical_device_desc: \"device: XLA_CPU device\", name: \"/device:GPU:0\"\n device_type: \"GPU\"\n memory_limit: 1543634944\n locality {\n   bus_id: 1\n   links {\n   }\n }\n incarnation: 9450560449747331592\n physical_device_desc: \"device: 0, name: GeForce GTX 1050, pci bus id: 0000:03:00.0, compute capability: 6.1\"]"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1541838921590_-1525223559",
+      "id": "20181110-173521_541199469",
+      "dateCreated": "2018-11-10 17:35:21.590",
+      "dateStarted": "2018-11-10 17:35:42.702",
+      "dateFinished": "2018-11-10 17:35:43.409",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "GPU vs CPU 1000번 학습 기준",
+      "text": "r\u003d1000\r\n# filename\u003dstr(r)+\u0027_\u0027+str(SEQ_LEN)+\u0027_\u0027+str(OUT_SEQ_LEN)\r\n# now\u003ddatetime.now()\r\n# time\u003dstr(now.year)+str(now.month)+str(now.day)+\u0027_\u0027+str(now.hour)+str(now.minute)+\u0027__\u0027\r\n# path\u003d\"/home/scio/Desktop/bot/seq2seq/model/\"+time+filename+\u0027/\u0027\r\n# os.system(\u0027mkdir \u0027+path)\r\n\r\nstart_time \u003d time.time() \r\nlsm_scalar \u003d tf.summary.scalar(\u0027loss\u0027,loss) #tensorboard\r\nsummary\u003dtf.summary.merge_all() #tensorboard\r\nsaver \u003d tf.train.Saver()\r\nwith tf.Session(config\u003dtf.ConfigProto(log_device_placement\u003dFalse)) as sess:\r\n    with tf.device(\u0027/gpu:0\u0027):\r\n        sess.run(init_op)\r\n        # writer \u003d tf.summary.FileWriter(path,sess.graph) #tensorboard\r\n        for step in range(r):\r\n\r\n            shuffle_index \u003d np.random.permutation(len(train_input))\r\n            batch_xs \u003d train_input[shuffle_index[:100]]\r\n            batch_ys \u003d train_label[shuffle_index[:100]]\r\n            feed_dict \u003d {}\r\n            feed_dict[inputs] \u003d batch_xs\r\n            feed_dict[labels] \u003d batch_ys\r\n\r\n            init_state_value \u003d np.zeros([len(batch_ys), NODE_NUM])\r\n            feed_dict[init_state] \u003d init_state_value\r\n            sess.run(train_op, feed_dict\u003dfeed_dict)\r\n            \r\n            input_value \u003d sess.run(normed_inputs, feed_dict\u003dfeed_dict)\r\n            label_value \u003d sess.run(normed_labels, feed_dict\u003dfeed_dict)\r\n            pred_value \u003d sess.run(prediction, feed_dict\u003dfeed_dict)\r\n            loss_value \u003d sess.run(loss, feed_dict\u003dfeed_dict)\r\n            show_loss \u003d sess.run(lsm_scalar, feed_dict\u003dfeed_dict) #tensorboard\r\n            writer.add_summary(show_loss, step) #tensorboard\r\n        # saver.save(sess, path)\r\nendtime\u003d(time.time() - start_time)\r\nprint(\"/gpu:0 Runtime:\",(time.time() - start_time),\"1 r당 소요 초:\",endtime/r)\r\n\r\nstart_time \u003d time.time() \r\nlsm_scalar \u003d tf.summary.scalar(\u0027loss\u0027,loss) #tensorboard\r\nsummary\u003dtf.summary.merge_all() #tensorboard\r\nsaver \u003d tf.train.Saver()\r\nwith tf.Session(config\u003dtf.ConfigProto(log_device_placement\u003dFalse)) as sess:\r\n    with tf.device(\u0027/cpu:0\u0027):\r\n        sess.run(init_op)\r\n        # writer \u003d tf.summary.FileWriter(path,sess.graph) #tensorboard\r\n        for step in range(r):\r\n\r\n            shuffle_index \u003d np.random.permutation(len(train_input))\r\n            batch_xs \u003d train_input[shuffle_index[:100]]\r\n            batch_ys \u003d train_label[shuffle_index[:100]]\r\n            feed_dict \u003d {}\r\n            feed_dict[inputs] \u003d batch_xs\r\n            feed_dict[labels] \u003d batch_ys\r\n\r\n            init_state_value \u003d np.zeros([len(batch_ys), NODE_NUM])\r\n            feed_dict[init_state] \u003d init_state_value\r\n            sess.run(train_op, feed_dict\u003dfeed_dict)\r\n            \r\n            input_value \u003d sess.run(normed_inputs, feed_dict\u003dfeed_dict)\r\n            label_value \u003d sess.run(normed_labels, feed_dict\u003dfeed_dict)\r\n            pred_value \u003d sess.run(prediction, feed_dict\u003dfeed_dict)\r\n            loss_value \u003d sess.run(loss, feed_dict\u003dfeed_dict)\r\n            show_loss \u003d sess.run(lsm_scalar, feed_dict\u003dfeed_dict) #tensorboard\r\n            writer.add_summary(show_loss, step) #tensorboard\r\n        # saver.save(sess, path)\r\nendtime\u003d(time.time() - start_time)\r\nprint(\"/cpu:0 Runtime:\",(time.time() - start_time),\"1 r당 소요 초:\",endtime/r)\r\n\r\n\r\n",
+      "user": "ghsehr1",
+      "dateUpdated": "2018-11-10 17:47:47.446",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python",
+        "title": true,
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "/gpu:0 Runtime: 73.09998488426208 1 r당 소요 초: 0.07309995317459106\n/cpu:0 Runtime: 73.31556153297424 1 r당 소요 초: 0.07331544876098633\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1541839038346_73369339",
+      "id": "20181110-173718_878032702",
+      "dateCreated": "2018-11-10 17:37:18.346",
+      "dateStarted": "2018-11-10 17:47:33.181",
+      "dateFinished": "2018-11-10 17:49:59.639",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "r\u003d1000000\r\nfilename\u003dstr(r)+\u0027_\u0027+str(SEQ_LEN)+\u0027_\u0027+str(OUT_SEQ_LEN)\r\nnow\u003ddatetime.now()\r\ntime\u003dstr(now.year)+str(now.month)+str(now.day)+\u0027_\u0027+str(now.hour)+str(now.minute)+\u0027__\u0027\r\npath\u003d\"/home/scio/Desktop/bot/seq2seq/model/\"+time+filename+\u0027/\u0027\r\nos.system(\u0027mkdir \u0027+path)\r\nprint(path)\r\nlsm_scalar \u003d tf.summary.scalar(filename,loss) #tensorboard\r\nsummary\u003dtf.summary.merge_all() #tensorboard\r\nsaver \u003d tf.train.Saver()\r\nwith tf.Session(config\u003dtf.ConfigProto(log_device_placement\u003dFalse)) as sess:\r\n    with tf.device(\u0027/gpu:0\u0027):\r\n        sess.run(init_op)\r\n        writer \u003d tf.summary.FileWriter(\"/home/scio/Desktop/bot/seq2seq/Tensorboard/\",sess.graph) #tensorboard\r\n        for step in range(r):\r\n\r\n            shuffle_index \u003d np.random.permutation(len(train_input))\r\n            batch_xs \u003d train_input[shuffle_index[:100]]\r\n            batch_ys \u003d train_label[shuffle_index[:100]]\r\n            feed_dict \u003d {}\r\n            feed_dict[inputs] \u003d batch_xs\r\n            feed_dict[labels] \u003d batch_ys\r\n\r\n            init_state_value \u003d np.zeros([len(batch_ys), NODE_NUM])\r\n            feed_dict[init_state] \u003d init_state_value\r\n            sess.run(train_op, feed_dict\u003dfeed_dict)\r\n            \r\n            input_value \u003d sess.run(normed_inputs, feed_dict\u003dfeed_dict)\r\n            label_value \u003d sess.run(normed_labels, feed_dict\u003dfeed_dict)\r\n            pred_value \u003d sess.run(prediction, feed_dict\u003dfeed_dict)\r\n            loss_value \u003d sess.run(loss, feed_dict\u003dfeed_dict)\r\n            if step % (r/10) \u003d\u003d 0:\r\n                print(\"--------------------------------------------------\")\r\n                print(step,\u0027step train loss value: \u0027, loss_value)\r\n            show_loss \u003d sess.run(lsm_scalar, feed_dict\u003dfeed_dict) #tensorboard\r\n            writer.add_summary(show_loss, step) #tensorboard\r\n        saver.save(sess, path)\r\n",
+      "user": "ghsehr1",
+      "dateUpdated": "2018-11-10 18:11:49.476",
       "config": {
         "colWidth": 12.0,
         "fontSize": 9.0,
@@ -843,7 +962,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "2018-11-08 23:15:23.452472: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA\n2018-11-08 23:15:23.453736: I tensorflow/core/common_runtime/process_util.cc:69] Creating new thread pool with default inter op setting: 2. Tune using inter_op_parallelism_threads for best performance.\n2018-11-08 23:15:24.352255: E tensorflow/core/grappler/optimizers/dependency_optimizer.cc:666] Iteration \u003d 0, topological sort failed with message: The graph couldn\u0027t be sorted in topological order.\n2018-11-08 23:15:24.389415: E tensorflow/core/grappler/optimizers/dependency_optimizer.cc:666] Iteration \u003d 1, topological sort failed with message: The graph couldn\u0027t be sorted in topological order.\n2018-11-08 23:15:24.702229: E tensorflow/core/grappler/optimizers/dependency_optimizer.cc:666] Iteration \u003d 0, topological sort failed with message: The graph couldn\u0027t be sorted in topological order.\n2018-11-08 23:15:24.724049: E tensorflow/core/grappler/optimizers/dependency_optimizer.cc:666] Iteration \u003d 1, topological sort failed with message: The graph couldn\u0027t be sorted in topological order.\n--------------------------------------------------\n0 step train loss value:  96.269104\n--------------------------------------------------\n5 step train loss value:  45.168983\n--------------------------------------------------\n10 step train loss value:  26.752066\n--------------------------------------------------\n15 step train loss value:  32.836834\n--------------------------------------------------\n20 step train loss value:  24.493275\n--------------------------------------------------\n25 step train loss value:  25.789488\n--------------------------------------------------\n30 step train loss value:  30.666533\n--------------------------------------------------\n35 step train loss value:  21.736143\n--------------------------------------------------\n40 step train loss value:  21.317999\n--------------------------------------------------\n45 step train loss value:  17.220966\n"
+            "data": "/home/scio/Desktop/bot/seq2seq/model/20181110_183__10_100_30/\n--------------------------------------------------\n0 step train loss value:  141.4641\n--------------------------------------------------\n1 step train loss value:  109.96451\n--------------------------------------------------\n2 step train loss value:  98.96775\n--------------------------------------------------\n3 step train loss value:  84.78058\n--------------------------------------------------\n4 step train loss value:  64.97519\n--------------------------------------------------\n5 step train loss value:  64.8824\n--------------------------------------------------\n6 step train loss value:  48.10061\n--------------------------------------------------\n7 step train loss value:  46.255226\n--------------------------------------------------\n8 step train loss value:  38.74514\n--------------------------------------------------\n9 step train loss value:  37.1417\n"
           }
         ]
       },
@@ -851,15 +970,15 @@
       "jobName": "paragraph_1541503720505_1995577585",
       "id": "20181106-202840_379827171",
       "dateCreated": "2018-11-06 20:28:40.505",
-      "dateStarted": "2018-11-08 23:15:23.434",
-      "dateFinished": "2018-11-08 23:15:46.805",
+      "dateStarted": "2018-11-10 18:03:30.832",
+      "dateFinished": "2018-11-10 18:03:34.249",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
-      "text": "for i in range(len(test_label)):\n\tplt.cla()\n\tplt.plot(range(-99, 1), input_value[i, :, 1], \u0027b\u0027)\n\tplt.plot(range(1, 31), label_value[i, :, 1], \u0027g\u0027)\n\tplt.plot(range(1, 31), pred_value[i, :, 1], \u0027r--\u0027)\n\tplt.title(\u0027test\u0027)\n\tpath\u003d\"/home/scio/Desktop/bot/seq2seq/100_30_100000_5/\"+\"test\"+str(i)+\".png\"\n\tplt.savefig(path)\n\t\t",
+      "text": "os.system(\"mkdir \"+path+\"predImg\")\nfor i in range(len(test_label)):\n\tplt.cla()\n\tplt.plot(range(-99, 1), input_value[i, :, 1], \u0027b\u0027)\n\tplt.plot(range(1, 31), label_value[i, :, 1], \u0027g\u0027)\n\tplt.plot(range(1, 31), pred_value[i, :, 1], \u0027r--\u0027)\n\tplt.title(\u0027test\u0027)\n\tplt.savefig(path+\"predImg/test\"+str(i)+\".png\")\n\t\t",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-08 23:16:28.081",
+      "dateUpdated": "2018-11-10 16:07:22.879",
       "config": {
         "colWidth": 12.0,
         "fontSize": 9.0,
@@ -876,10 +995,39 @@
         "params": {},
         "forms": {}
       },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "[\u003cmatplotlib.lines.Line2D object at 0x7f1beee61240\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf421b518\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beed29550\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf40def98\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf40de710\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4277eb8\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beeccbe80\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beed9aac8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc313128\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beed9a240\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf42e53c8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc16b9e8\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf40f0a20\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beed93860\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc189ba8\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf433b400\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf41312e8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf422a2e8\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf42e5470\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf410fbe0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf42e5828\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf42e5fd0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc38f668\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc38f940\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beed5c320\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf41d6898\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4123cf8\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf43371d0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc377630\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc38feb8\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf41f22e8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beed29208\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beed9a1d0\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc16b208\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beee7ccc0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beedb2fd0\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beefa3ba8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf433b400\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc313c18\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4337320\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc37cb00\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc37cc88\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf435db00\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc37c160\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfd60c470\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc2e0fd0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf435d128\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beeccbf60\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4084cf8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf421bcc0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beeccb240\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf41c5240\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1c2b428c88\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4277748\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc2e0128\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc2c9128\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf40579b0\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc1f7b70\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc189080\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4277160\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1c2a11fc50\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4277d30\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc307eb8\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc189908\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc14bac8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc2c9710\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc1f7208\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc14b7b8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beeef7160\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf436a2b0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf40de198\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf40de320\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc1f73c8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc13e9e8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf41c5588\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc313828\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf436f8d0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4084908\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfd60c470\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc37c3c8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc14bcc0\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf421bdd8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf435d128\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc307a58\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf436f2e8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc13e400\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4277160\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc13ef28\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc313358\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf421be80\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beedb2748\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf436f780\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf421b940\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf42b39b0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc1f7208\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc37ca20\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf40de978\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf436aa90\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc2c9c88\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf41c5828\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc1f7080\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4277eb8\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beedb2eb8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beecad860\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf436fa58\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf435d588\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc13ea20\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beeef7048\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc189d68\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfd60c358\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf40de7b8\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beed938d0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc225cf8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc13ea90\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1c2a11fc50\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc307940\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc2e04a8\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc225e80\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beecad8d0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc307ef0\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beeccbef0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf42f9a20\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beeef7828\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc2c9048\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4084160\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beed6b438\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4277160\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4084550\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc14bc88\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf41cfef0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc16b278\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4277da0\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc37c048\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf41c5ac8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc189f98\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc1f76a0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc1f7c50\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beee7cc18\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4131e10\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4131ba8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc2e0a90\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf435d2e8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4131c18\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc16b2b0\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc37c2b0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf41cffd0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beee7ce48\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf435da90\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc2e0d68\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc2c90f0\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc2e0080\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4057208\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc225b70\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beed93390\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beed6b860\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf436f5c0\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beed9ac18\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beed6b550\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc16b278\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beee7c6a0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beed6b198\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf41f20b8\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc225fd0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf42f9080\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beee7c320\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf40c54e0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4277860\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beee7c8d0\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beeccbcf8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beedb20b8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf41e5d30\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4277d30\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf41c56a0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc2e05c0\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1c00f2ce80\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beedb29b0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc225ac8\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf40840f0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf42b36a0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf421bac8\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4084a20\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc307940\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc313400\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf421b748\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beed9a1d0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4084b38\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc3135c0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf40577b8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beeccb588\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beeccbe48\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beed937f0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4277cc0\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beed9aa20\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf41f2c18\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf42e5ba8\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf41f2b38\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf42f99b0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf42b3828\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf42b3dd8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4057c18\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf42b3128\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf41cf5c0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc38fa58\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf42b3b70\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beedb2780\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc36ed68\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf41316d8\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc1f7128\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc38f080\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc16b390\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4057f98\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc2e0630\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc1f7dd8\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4131438\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beeef71d0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf436f978\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc225160\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf41cfcc0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc38f4e0\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf42f97b8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beed6be80\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc225630\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beed93e80\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc2254a8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc2e0f98\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf40c56d8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf421b748\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4134f28\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beed9a320\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc2c90f0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf42b3588\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4057ba8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beed9a8d0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc16b160\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc1f7b38\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc38f550\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc14bdd8\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc1f7208\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beeccbdd8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf40dec50\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf41c5e48\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4057208\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc38fbe0\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc2e0780\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc25dac8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4131a20\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beefa3208\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc1f74e0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4337e10\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc1f7cf8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4084668\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc225ac8\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc2254e0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf41cf8d0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beed9add8\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc13ed68\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf42e56a0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4084128\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beed9acc0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4233cc0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc2e00f0\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc36e0b8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf412ffd0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beed5ce10\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4337080\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf41155f8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beed9a6d8\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4134198\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc16b7f0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4057cc0\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4115860\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4115128\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beefa34e0\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc1890b8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beeccbdd8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beed5cc88\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc313898\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf41d60b8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4277940\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1beefa3e80\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc307c50\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc1f7518\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc38f630\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf410f908\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4337fd0\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf412fb38\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc38fd68\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc225cc0\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf40840f0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc38f4a8\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc1a42b0\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf42e5e80\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf41ce2b0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc36ec18\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf421f6a0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf4337a20\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bfc225e48\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf41157f0\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1c00f2ca90\u003e]\n[\u003cmatplotlib.lines.Line2D object at 0x7f1bf42772e8\u003e]\nText(0.5, 1.0, \u0027test\u0027)\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Traceback (most recent call last):\n  File \"/tmp/zeppelin_python-3697168650267786692.py\", line 313, in \u003cmodule\u003e\n    exec(code, _zcUserQueryNameSpace)\n  File \"\u003cstdin\u003e\", line 4, in \u003cmodule\u003e\nIndexError: index 100 is out of bounds for axis 0 with size 100\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/tmp/zeppelin_python-3697168650267786692.py\", line 320, in \u003cmodule\u003e\n    raise Exception(traceback.format_exc())\nException: Traceback (most recent call last):\n  File \"/tmp/zeppelin_python-3697168650267786692.py\", line 313, in \u003cmodule\u003e\n    exec(code, _zcUserQueryNameSpace)\n  File \"\u003cstdin\u003e\", line 4, in \u003cmodule\u003e\nIndexError: index 100 is out of bounds for axis 0 with size 100\n\n"
+          }
+        ]
+      },
       "apps": [],
       "jobName": "paragraph_1541504384391_-223294562",
       "id": "20181106-203944_216612025",
       "dateCreated": "2018-11-06 20:39:44.391",
+      "dateStarted": "2018-11-10 16:07:22.893",
+      "dateFinished": "2018-11-10 16:07:29.393",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "user": "ghsehr1",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1541832165669_628549057",
+      "id": "20181110-154245_1930877262",
+      "dateCreated": "2018-11-10 15:42:45.670",
       "status": "READY",
       "progressUpdateIntervalMs": 500
     }
