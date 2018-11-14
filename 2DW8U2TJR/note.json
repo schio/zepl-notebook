@@ -1,0 +1,347 @@
+{
+  "paragraphs": [
+    {
+      "text": "%md\n# SAVE EX",
+      "user": "ghsehr1",
+      "dateUpdated": "2018-11-14 23:31:42.454",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch1\u003eSAVE EX\u003c/h1\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1542205894797_-1497553921",
+      "id": "20181114-233134_191376811",
+      "dateCreated": "2018-11-14 23:31:34.798",
+      "dateStarted": "2018-11-14 23:31:42.454",
+      "dateFinished": "2018-11-14 23:31:44.812",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "import tensorflow as tf",
+      "user": "ghsehr1",
+      "dateUpdated": "2018-11-14 23:29:21.373",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1542205751187_1659788693",
+      "id": "20181114-232911_957570370",
+      "dateCreated": "2018-11-14 23:29:11.187",
+      "dateStarted": "2018-11-14 23:29:21.382",
+      "dateFinished": "2018-11-14 23:29:21.400",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "input_data \u003d [[ 1, 5, 3, 7, 8, 10, 12],\r\n             [5, 8, 10, 3, 9, 7, 1]]\r\nlabel_data \u003d [[ 0, 0, 0, 1, 0], [1, 0, 0, 0, 0]]\r\n\r\n",
+      "user": "ghsehr1",
+      "dateUpdated": "2018-11-14 23:29:29.046",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1542205761374_409716766",
+      "id": "20181114-232921_747760950",
+      "dateCreated": "2018-11-14 23:29:21.374",
+      "dateStarted": "2018-11-14 23:29:29.056",
+      "dateFinished": "2018-11-14 23:29:29.158",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "INPUT_SIZE \u003d 7\r\nHIDDEN1_SIZE \u003d 10\r\nHIDDEN2_SIZE \u003d 8\r\nCLASSES \u003d 5\r\n\r\nepochs \u003d 1000\r\nLearning_Rate \u003d 0.05",
+      "user": "ghsehr1",
+      "dateUpdated": "2018-11-14 23:29:39.536",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1542205769046_-1696307899",
+      "id": "20181114-232929_1636292412",
+      "dateCreated": "2018-11-14 23:29:29.046",
+      "dateStarted": "2018-11-14 23:29:39.545",
+      "dateFinished": "2018-11-14 23:29:39.637",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "x \u003d tf.placeholder(tf.float32, shape\u003d[None, INPUT_SIZE], name\u003d\u0027x\u0027)\r\ny_ \u003d tf.placeholder(tf.float32, shape\u003d[None, CLASSES], name\u003d\u0027y_\u0027)",
+      "user": "ghsehr1",
+      "dateUpdated": "2018-11-14 23:29:47.296",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1542205779536_-359472546",
+      "id": "20181114-232939_1735993459",
+      "dateCreated": "2018-11-14 23:29:39.536",
+      "dateStarted": "2018-11-14 23:29:47.305",
+      "dateFinished": "2018-11-14 23:29:47.407",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "tensor_map \u003d {x: input_data, y_: label_data}",
+      "user": "ghsehr1",
+      "dateUpdated": "2018-11-14 23:29:55.147",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1542205787297_1859905703",
+      "id": "20181114-232947_1446195490",
+      "dateCreated": "2018-11-14 23:29:47.297",
+      "dateStarted": "2018-11-14 23:29:55.157",
+      "dateFinished": "2018-11-14 23:29:55.256",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "W_h1 \u003d tf.Variable(tf.truncated_normal(shape\u003d[INPUT_SIZE, HIDDEN1_SIZE]), dtype\u003dtf.float32, name\u003d\u0027W_h1\u0027)\r\nb_h1 \u003d tf.Variable(tf.zeros(shape\u003d[HIDDEN1_SIZE]), dtype\u003dtf.float32, name\u003d\u0027b_h1\u0027)\r\n\r\nW_h2 \u003d tf.Variable(tf.truncated_normal(shape\u003d[HIDDEN1_SIZE, HIDDEN2_SIZE], dtype\u003dtf.float32, name\u003d\u0027W_h2\u0027))\r\nb_h2 \u003d tf.Variable(tf.zeros(shape\u003d[HIDDEN2_SIZE]), dtype\u003dtf.float32, name\u003d\u0027b_h2\u0027)\r\n\r\nW_o \u003d tf.Variable(tf.truncated_normal(shape\u003d[HIDDEN2_SIZE, CLASSES]), dtype\u003dtf.float32, name\u003d\u0027W_o\u0027)\r\nb_o \u003d tf.Variable(tf.zeros(shape\u003d[CLASSES]), dtype\u003dtf.float32, name\u003d\u0027b_o\u0027)\r\n\r\nparam_list \u003d [W_h1, b_h1, W_h2, b_h2, W_o, b_o]\r\n# weight 가 끝나는 시점에서 saver 생성 - 그 이후에 넣으면 필요없는 variable까지 저장한다\r\nsaver \u003d tf.train.Saver(param_list)",
+      "user": "ghsehr1",
+      "dateUpdated": "2018-11-14 23:30:35.309",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1542205795147_1781388773",
+      "id": "20181114-232955_1487474212",
+      "dateCreated": "2018-11-14 23:29:55.147",
+      "dateStarted": "2018-11-14 23:30:29.292",
+      "dateFinished": "2018-11-14 23:30:29.362",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "hidden1 \u003d tf.sigmoid(tf.matmul(x, W_h1) + b_h1, name\u003d\u0027hidden1\u0027)\r\nhidden2 \u003d tf.sigmoid(tf.matmul(hidden1, W_h2) + b_h2, name\u003d\u0027hidden2\u0027)\r\ny \u003d tf.sigmoid(tf.matmul(hidden2, W_o) + b_o, name\u003d\u0027y\u0027)",
+      "user": "ghsehr1",
+      "dateUpdated": "2018-11-14 23:30:41.736",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1542205829282_724369070",
+      "id": "20181114-233029_1874155192",
+      "dateCreated": "2018-11-14 23:30:29.282",
+      "dateStarted": "2018-11-14 23:30:41.747",
+      "dateFinished": "2018-11-14 23:30:41.809",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "comp_pred \u003d tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))\r\naccuracy \u003d tf.reduce_mean(tf.cast(comp_pred, tf.float32))\r\nsess \u003d tf.Session()",
+      "user": "ghsehr1",
+      "dateUpdated": "2018-11-14 23:30:58.549",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1542205841736_129804426",
+      "id": "20181114-233041_1054826399",
+      "dateCreated": "2018-11-14 23:30:41.736",
+      "dateStarted": "2018-11-14 23:30:53.316",
+      "dateFinished": "2018-11-14 23:30:53.387",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "sess.run(tf.global_variables_initializer())\r\n\r\n# restore는 initialize 대신 하면 된다\r\n# saver.restore(sess, \u0027./tf_model.ckpt\u0027)\r\n# result \u003d sess.run(y, tensor_map)\r\n\r\nfor i in range(epochs):\r\n    _, loss, acc \u003d sess.run([train, cost, accuracy], tensor_map)\r\n    if i % 100 \u003d\u003d 0:\r\n\r\n        saver.save(sess, \u0027./tf_model/tf_model.ckpt\u0027)\r\n\r\n        print(\u0027----------------------\u0027)\r\n        print(\"step       :\", i)\r\n        print(\"loss       : {0:.5f}\".format(loss))\r\n        print(\"accuracy   :\", acc)",
+      "user": "ghsehr1",
+      "dateUpdated": "2018-11-14 23:31:22.155",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1542205853301_-1541722003",
+      "id": "20181114-233053_235324219",
+      "dateCreated": "2018-11-14 23:30:53.301",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "SAVE and RESTORE EX",
+  "id": "2DW8U2TJR",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "python:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}
