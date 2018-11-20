@@ -3,7 +3,7 @@
     {
       "text": "%md\n# 암호화폐 가격 예측\n\nBinance Market Data(CandleStick)와 Sequence2Sequence를 이용한 암호화폐 가격 예측.\n\n**TEST CASE**\n\n- Feature에 따른 Test\n\n- Layer에 따른 Test\n\n**무엇을 예측할 것인가**\n무엇을 예측할지도 중요한 포인트이다.\n\n- 미래 가격 그래프 예측\n\n- 최종 가격보다 n% 상승 혹은 하락 예측\n\n    - X시간 내에 n%상승 혹은 하락할 것인가\n    - X시간 후 Y시간 내에 n% 상승 혹은 하락할 것인가",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-11 21:28:42.249",
+      "dateUpdated": "2018-11-12 15:04:33.417",
       "config": {
         "colWidth": 12.0,
         "fontSize": 9.0,
@@ -35,8 +35,8 @@
       "jobName": "paragraph_1541492308457_-2060001322",
       "id": "20181106-171828_1277227381",
       "dateCreated": "2018-11-06 17:18:28.457",
-      "dateStarted": "2018-11-11 21:28:42.266",
-      "dateFinished": "2018-11-11 21:28:44.399",
+      "dateStarted": "2018-11-12 15:04:33.418",
+      "dateFinished": "2018-11-12 15:04:33.424",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -44,7 +44,7 @@
       "title": "선언",
       "text": "import sys\nimport tensorflow as tf\nimport pandas as pd\nimport json\nfrom pprint import pprint as p\nimport os\nimport matplotlib.pyplot as plt\nimport numpy as np\nimport datetime\nimport time\nimport tensorflow as tf\nimport numpy as np\nfrom binance.client import Client\nfrom datetime import datetime\nimport csv\nimport matplotlib.pyplot as plt\nimport matplotlib.image as mpimg\n\ndef __Api__():\n    f \u003d open(\"/home/scio/zepl/conf/API_KEY\", \u0027r\u0027)\n    line \u003d f.readline()\n    f.close()\n    return line\ndef __Sign__():\n    f \u003d open(\"/home/scio/zepl/conf/SECRET_KEY\", \u0027r\u0027)\n    line \u003d f.readline()\n    f.close()\n    return line\n    \nprint(\u0027python version is\u0027,sys.version.split()[0],sys.version.split()[1],sys.version.split()[2])\nprint(\u0027tensorflow version is\u0027,tf.__version__)",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-11 21:28:44.468",
+      "dateUpdated": "2018-11-14 23:15:58.160",
       "config": {
         "colWidth": 6.0,
         "fontSize": 9.0,
@@ -57,7 +57,7 @@
         },
         "editorMode": "ace/mode/python",
         "title": true,
-        "editorHide": true
+        "editorHide": false
       },
       "settings": {
         "params": {},
@@ -76,8 +76,8 @@
       "jobName": "paragraph_1541391240402_-1901672382",
       "id": "20181105-131400_841283194",
       "dateCreated": "2018-11-05 13:14:00.402",
-      "dateStarted": "2018-11-11 21:28:44.488",
-      "dateFinished": "2018-11-11 21:28:50.015",
+      "dateStarted": "2018-11-14 23:15:58.237",
+      "dateFinished": "2018-11-14 23:16:20.413",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -85,7 +85,7 @@
       "title": "API를 이용한 Kline(CandleSticks) 호출 및 저장",
       "text": "BTC\u003d\u0027BTCUSDT\u0027\nclient \u003d Client(__Api__(),__Sign__())\nklines_orig \u003d client.get_historical_klines(BTC, \u00274h\u0027, \"1 Jul, 2014\")\n\nfor i in range(len(klines_orig)):\n    # klines_orig[i][0]\u003ddatetime.fromtimestamp(klines_orig[i][0]/1000).strftime(\u0027%Y-%m-%d %H:%M\u0027)\n    # klines_orig[i][6]\u003ddatetime.fromtimestamp(klines_orig[i][6]/1000).strftime(\u0027%Y-%m-%d %H:%M\u0027)\n    klines_orig[i][0]\u003dint(datetime.fromtimestamp(klines_orig[i][0]/1000).strftime(\u0027%Y%m%d%H%M\u0027))\n    klines_orig[i][6]\u003dint(datetime.fromtimestamp(klines_orig[i][6]/1000).strftime(\u0027%Y%m%d%H%M\u0027))\nklines\u003dnp.array(klines_orig)\n# klines\u003dklines[:,1:6]\n\ndf\u003dpd.DataFrame(klines)\n# To JSON\nwith open(\"/home/scio/zepl/data/bitcoinKlines/4klines.json\", \u0027w\u0027) as f:\n    f.write(df.to_json(orient\u003d\u0027records\u0027, lines\u003dTrue))\n    \n# To CSV\ndf.to_csv(\"/home/scio/zepl/data/bitcoinKlines/data4klines.csv\",sep\u003d\u0027,\u0027)\nprint(\"shape is\",klines.shape)\n\nchart\u003d client.get_historical_klines(BTC, \"12h\", \"1 Jul, 2014\")\nfor i in range(len(chart)):\n    chart[i][0]\u003ddatetime.fromtimestamp(chart[i][0]/1000).strftime(\u0027%Y-%m-%d %H:%M\u0027)\n",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-11 21:28:50.093",
+      "dateUpdated": "2018-11-12 14:47:03.596",
       "config": {
         "colWidth": 6.0,
         "fontSize": 9.0,
@@ -131,7 +131,7 @@
         },
         "editorMode": "ace/mode/python",
         "title": true,
-        "editorHide": true
+        "editorHide": false
       },
       "settings": {
         "params": {},
@@ -159,7 +159,7 @@
       "title": "암호화폐(비트코인) 차트",
       "text": "z.show(pd.DataFrame(chart))",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-12 13:14:15.732",
+      "dateUpdated": "2018-11-20 23:08:04.942",
       "config": {
         "colWidth": 12.0,
         "fontSize": 9.0,
@@ -264,7 +264,7 @@
     {
       "text": "%md\n현재 dataLoad의 return은 7가지 피쳐(OHLC, QuoteAssetVolume, NumOfTrades)만을 리턴하고있다.\n전체 피쳐를 리턴하여 트레이닝 할 경우 loss가 nan이 나온다. normalization의 문제로 추정 中",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-11 21:28:50.093",
+      "dateUpdated": "2018-11-12 15:04:44.334",
       "config": {
         "colWidth": 12.0,
         "fontSize": 9.0,
@@ -296,8 +296,8 @@
       "jobName": "paragraph_1541834780358_1490613654",
       "id": "20181110-162620_961028620",
       "dateCreated": "2018-11-10 16:26:20.358",
-      "dateStarted": "2018-11-11 21:28:50.116",
-      "dateFinished": "2018-11-11 21:28:50.123",
+      "dateStarted": "2018-11-12 15:04:44.334",
+      "dateFinished": "2018-11-12 15:04:44.337",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -561,9 +561,9 @@
     },
     {
       "title": "def model(inputs_ph, init_state, seq_len, out_seq_len, sizeOfColumns):",
-      "text": "def model(inputs_ph, init_state, seq_len, out_seq_len, sizeOfColumns):\r\n   \u0027\u0027\u0027\r\n   arguments:\r\n      inputs_ph: input placeholder\r\n      init_state: 초기 상태 placeholder\r\n      seq_len: input의 time 길이\r\n      out_seq_len: output의 time 길이\r\n   return:\r\n      softmax result\r\n   \u0027\u0027\u0027\r\n   with tf.variable_scope(\u0027rnn\u0027) as scope:\r\n      # encoder\r\n      rc1 \u003d init_state\r\n      for i in range(seq_len):\r\n         input_prev \u003d tf.concat([inputs_ph[i], rc1], 1)\r\n         rc1 \u003d fully_connected_layer(input_prev, NODE_NUM, \u0027rc1\u0027)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         logits \u003d fully_connected_layer(rc1, sizeOfColumns, \u0027logits\u0027)\r\n         if i\u003d\u003d0:\r\n            tf.get_variable_scope().reuse_variables()\r\n\r\n      # decoder\r\n      logits_list \u003d [tf.reshape(logits, (-1, 1, sizeOfColumns))]\r\n      for i in range(out_seq_len-1):\r\n         input_prev \u003d tf.concat([logits, rc1], 1)\r\n         rc1 \u003d fully_connected_layer(input_prev, NODE_NUM, \u0027rc1\u0027)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         rc1 \u003d tf.nn.tanh(rc1)\r\n         logits \u003d fully_connected_layer(rc1, sizeOfColumns, \u0027logits\u0027)\r\n         logits_list.append(tf.reshape(logits, (-1, 1, sizeOfColumns)))\r\n\r\n      result \u003d tf.concat(logits_list, axis\u003d1)\r\n\r\n   return result",
+      "text": "def model(inputs_ph, init_state, seq_len, out_seq_len, sizeOfColumns):\r\n   \u0027\u0027\u0027\r\n   arguments:\r\n      inputs_ph: input placeholder\r\n      init_state: 초기 상태 placeholder\r\n      seq_len: input의 time 길이\r\n      out_seq_len: output의 time 길이\r\n   return:\r\n      softmax result\r\n   \u0027\u0027\u0027\r\n   with tf.variable_scope(\u0027rnn\u0027) as scope:\r\n      # encoder\r\n      rc1 \u003d init_state\r\n      for i in range(seq_len):\r\n         input_prev \u003d tf.concat([inputs_ph[i], rc1], 1)\r\n         rc1 \u003d fully_connected_layer(input_prev, NODE_NUM, \u0027rc1\u0027)\r\n         rc2 \u003d tf.nn.tanh(rc1)\r\n         rc3 \u003d tf.nn.tanh(rc2)\r\n         rc4 \u003d tf.nn.tanh(rc3)\r\n         rc5 \u003d tf.nn.tanh(rc4)\r\n         rc6 \u003d tf.nn.tanh(rc5)\r\n         rc7 \u003d tf.nn.tanh(rc6)\r\n         rc8 \u003d tf.nn.tanh(rc7)\r\n         rc9 \u003d tf.nn.tanh(rc8)\r\n         logits \u003d fully_connected_layer(rc9, sizeOfColumns, \u0027logits\u0027)\r\n         if i\u003d\u003d0:\r\n            tf.get_variable_scope().reuse_variables()\r\n\r\n      # decoder\r\n      logits_list \u003d [tf.reshape(logits, (-1, 1, sizeOfColumns))]\r\n      for i in range(out_seq_len-1):\r\n         input_prev \u003d tf.concat([logits, rc1], 1)\r\n         rc1 \u003d fully_connected_layer(input_prev, NODE_NUM, \u0027rc1\u0027)\r\n         rc2 \u003d tf.nn.tanh(rc1)\r\n         rc3 \u003d tf.nn.tanh(rc2)\r\n         rc4 \u003d tf.nn.tanh(rc3)\r\n         rc5 \u003d tf.nn.tanh(rc4)\r\n         rc6 \u003d tf.nn.tanh(rc5)\r\n         rc7 \u003d tf.nn.tanh(rc6)\r\n         rc8 \u003d tf.nn.tanh(rc7)\r\n         rc9 \u003d tf.nn.tanh(rc8)\r\n         logits \u003d fully_connected_layer(rc9, sizeOfColumns, \u0027logits\u0027)\r\n         logits_list.append(tf.reshape(logits, (-1, 1, sizeOfColumns)))\r\n\r\n      result \u003d tf.concat(logits_list, axis\u003d1)\r\n\r\n   return result",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-11 21:28:50.653",
+      "dateUpdated": "2018-11-20 23:10:41.241",
       "config": {
         "colWidth": 6.0,
         "fontSize": 9.0,
@@ -590,8 +590,8 @@
       "jobName": "paragraph_1541391396025_-680878935",
       "id": "20181105-131636_192069966",
       "dateCreated": "2018-11-05 13:16:36.025",
-      "dateStarted": "2018-11-11 21:28:50.699",
-      "dateFinished": "2018-11-11 21:28:50.778",
+      "dateStarted": "2018-11-20 23:10:41.312",
+      "dateFinished": "2018-11-20 23:10:41.430",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -862,7 +862,7 @@
       "title": "Device Check",
       "text": "from tensorflow.python.client import device_lib\r\n\r\ndef get_available_gpus():\r\n    local_device_protos \u003d device_lib.list_local_devices()\r\n    return [x.name for x in local_device_protos if x.device_type \u003d\u003d \u0027GPU\u0027]\r\nget_available_gpus()",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-11 21:28:55.551",
+      "dateUpdated": "2018-11-12 15:03:03.602",
       "config": {
         "colWidth": 6.0,
         "fontSize": 9.0,
@@ -875,7 +875,7 @@
         },
         "editorMode": "ace/mode/python",
         "title": true,
-        "editorHide": true
+        "editorHide": false
       },
       "settings": {
         "params": {},
@@ -903,7 +903,7 @@
       "title": "GPU vs CPU 1000번 학습 기준",
       "text": "r\u003d1000\r\n# filename\u003dstr(r)+\u0027_\u0027+str(SEQ_LEN)+\u0027_\u0027+str(OUT_SEQ_LEN)\r\n# now\u003ddatetime.now()\r\n# time\u003dstr(now.year)+str(now.month)+str(now.day)+\u0027_\u0027+str(now.hour)+str(now.minute)+\u0027__\u0027\r\n# path\u003d\"/home/scio/Desktop/bot/seq2seq/model/\"+time+filename+\u0027/\u0027\r\n# os.system(\u0027mkdir \u0027+path)\r\n\r\nstart_time \u003d time.time() \r\nlsm_scalar \u003d tf.summary.scalar(\u0027loss\u0027,loss) #tensorboard\r\nsummary\u003dtf.summary.merge_all() #tensorboard\r\nsaver \u003d tf.train.Saver()\r\nwith tf.Session(config\u003dtf.ConfigProto(log_device_placement\u003dFalse)) as sess:\r\n    with tf.device(\u0027/gpu:0\u0027):\r\n        sess.run(init_op)\r\n        # writer \u003d tf.summary.FileWriter(path,sess.graph) #tensorboard\r\n        for step in range(r):\r\n\r\n            shuffle_index \u003d np.random.permutation(len(train_input))\r\n            batch_xs \u003d train_input[shuffle_index[:100]]\r\n            batch_ys \u003d train_label[shuffle_index[:100]]\r\n            feed_dict \u003d {}\r\n            feed_dict[inputs] \u003d batch_xs\r\n            feed_dict[labels] \u003d batch_ys\r\n\r\n            init_state_value \u003d np.zeros([len(batch_ys), NODE_NUM])\r\n            feed_dict[init_state] \u003d init_state_value\r\n            sess.run(train_op, feed_dict\u003dfeed_dict)\r\n            \r\n            input_value \u003d sess.run(normed_inputs, feed_dict\u003dfeed_dict)\r\n            label_value \u003d sess.run(normed_labels, feed_dict\u003dfeed_dict)\r\n            pred_value \u003d sess.run(prediction, feed_dict\u003dfeed_dict)\r\n            loss_value \u003d sess.run(loss, feed_dict\u003dfeed_dict)\r\n            show_loss \u003d sess.run(lsm_scalar, feed_dict\u003dfeed_dict) #tensorboard\r\n            writer.add_summary(show_loss, step) #tensorboard\r\n        # saver.save(sess, path)\r\nendtime\u003d(time.time() - start_time)\r\nprint(\"/gpu:0 Runtime:\",(time.time() - start_time),\"1 r당 소요 초:\",endtime/r)\r\n\r\nstart_time \u003d time.time() \r\nlsm_scalar \u003d tf.summary.scalar(\u0027loss\u0027,loss) #tensorboard\r\nsummary\u003dtf.summary.merge_all() #tensorboard\r\nsaver \u003d tf.train.Saver()\r\nwith tf.Session(config\u003dtf.ConfigProto(log_device_placement\u003dFalse)) as sess:\r\n    with tf.device(\u0027/cpu:0\u0027):\r\n        sess.run(init_op)\r\n        # writer \u003d tf.summary.FileWriter(path,sess.graph) #tensorboard\r\n        for step in range(r):\r\n\r\n            shuffle_index \u003d np.random.permutation(len(train_input))\r\n            batch_xs \u003d train_input[shuffle_index[:100]]\r\n            batch_ys \u003d train_label[shuffle_index[:100]]\r\n            feed_dict \u003d {}\r\n            feed_dict[inputs] \u003d batch_xs\r\n            feed_dict[labels] \u003d batch_ys\r\n\r\n            init_state_value \u003d np.zeros([len(batch_ys), NODE_NUM])\r\n            feed_dict[init_state] \u003d init_state_value\r\n            sess.run(train_op, feed_dict\u003dfeed_dict)\r\n            \r\n            input_value \u003d sess.run(normed_inputs, feed_dict\u003dfeed_dict)\r\n            label_value \u003d sess.run(normed_labels, feed_dict\u003dfeed_dict)\r\n            pred_value \u003d sess.run(prediction, feed_dict\u003dfeed_dict)\r\n            loss_value \u003d sess.run(loss, feed_dict\u003dfeed_dict)\r\n            show_loss \u003d sess.run(lsm_scalar, feed_dict\u003dfeed_dict) #tensorboard\r\n            writer.add_summary(show_loss, step) #tensorboard\r\n        # saver.save(sess, path)\r\nendtime\u003d(time.time() - start_time)\r\nprint(\"/cpu:0 Runtime:\",(time.time() - start_time),\"1 r당 소요 초:\",endtime/r)\r\n\r\n\r\n",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-11 21:28:55.551",
+      "dateUpdated": "2018-11-12 15:13:45.084",
       "config": {
         "colWidth": 6.0,
         "fontSize": 9.0,
@@ -916,7 +916,7 @@
         },
         "editorMode": "ace/mode/python",
         "title": true,
-        "editorHide": true
+        "editorHide": false
       },
       "settings": {
         "params": {},
@@ -1078,7 +1078,7 @@
       "title": "Test Result Load",
       "text": "for i in range(20):\r\n    img\u003dmpimg.imread(path+\u0027predImg/test\u0027+str(i)+\u0027.png\u0027)\r\n    imgplot \u003d plt.imshow(img)\r\n    plt.show()",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-12 13:37:39.348",
+      "dateUpdated": "2018-11-12 21:36:15.378",
       "config": {
         "colWidth": 6.0,
         "fontSize": 9.0,
@@ -1090,7 +1090,8 @@
           "completionSupport": true
         },
         "editorMode": "ace/mode/python",
-        "title": true
+        "title": true,
+        "tableHide": true
       },
       "settings": {
         "params": {},
@@ -1259,8 +1260,9 @@
       "progressUpdateIntervalMs": 500
     },
     {
+      "text": "loadsess\u003dtf.Session()\nloder\u003dtf.train.import_meta_graph(\u0027/home/scio/zepl/tensor/bitcoinPred/model/20181111_2128__700000_100_30/0.008737497.meta\u0027)\nloder.restore(loadsess,tf.train.latest_checkpoint(\u0027./\u0027))\n# graph \u003d tf.get_default_graph()",
       "user": "ghsehr1",
-      "dateUpdated": "2018-11-12 13:37:39.348",
+      "dateUpdated": "2018-11-14 23:18:16.732",
       "config": {
         "colWidth": 12.0,
         "fontSize": 9.0,
@@ -1277,11 +1279,145 @@
         "params": {},
         "forms": {}
       },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m\n\u001b[0;31mValueError\u001b[0m                                Traceback (most recent call last)\n\u001b[0;32m\u003cipython-input-7-ea30f4bdc2b0\u003e\u001b[0m in \u001b[0;36m\u003cmodule\u003e\u001b[0;34m()\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0mloadsess\u001b[0m\u001b[0;34m\u003d\u001b[0m\u001b[0mtf\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mSession\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      2\u001b[0m \u001b[0mloder\u001b[0m\u001b[0;34m\u003d\u001b[0m\u001b[0mtf\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mtrain\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mimport_meta_graph\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\u0027/home/scio/zepl/tensor/bitcoinPred/model/20181111_2128__700000_100_30/0.008737497.meta\u0027\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----\u003e 3\u001b[0;31m \u001b[0mloder\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mrestore\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mloadsess\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0mtf\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mtrain\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mlatest_checkpoint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\u0027./\u0027\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      4\u001b[0m \u001b[0;31m# graph \u003d tf.get_default_graph()\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\n\u001b[0;32m~/anaconda3/lib/python3.5/site-packages/tensorflow/python/training/saver.py\u001b[0m in \u001b[0;36mrestore\u001b[0;34m(self, sess, save_path)\u001b[0m\n\u001b[1;32m   1532\u001b[0m       \u001b[0;32mreturn\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   1533\u001b[0m     \u001b[0;32mif\u001b[0m \u001b[0msave_path\u001b[0m \u001b[0;32mis\u001b[0m \u001b[0;32mNone\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-\u003e 1534\u001b[0;31m       \u001b[0;32mraise\u001b[0m \u001b[0mValueError\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"Can\u0027t load save_path when it is None.\"\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   1535\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   1536\u001b[0m     \u001b[0;32mif\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0mcheckpoint_management\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mcheckpoint_exists\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mcompat\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mas_text\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0msave_path\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\n\u001b[0;31mValueError\u001b[0m: Can\u0027t load save_path when it is None."
+          }
+        ]
+      },
       "apps": [],
       "jobName": "paragraph_1541925135094_1986074813",
       "id": "20181111-173215_1641594095",
       "dateCreated": "2018-11-11 17:32:15.094",
+      "dateStarted": "2018-11-14 23:18:16.774",
+      "dateFinished": "2018-11-14 23:18:17.893",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "for op in tf.get_default_graph().get_operations():\r\n    print(op.name)\r\n",
+      "user": "ghsehr1",
+      "dateUpdated": "2018-11-14 23:17:30.168",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1542006519992_255554696",
+      "id": "20181112-160839_495591987",
+      "dateCreated": "2018-11-12 16:08:39.992",
+      "dateStarted": "2018-11-14 23:17:30.229",
+      "dateFinished": "2018-11-14 23:17:30.545",
       "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "from tensorflow.python.tools import inspect_checkpoint as chkp\r\n# tf_model.ckpt.index와 tf_model.ckpt.data가 동시에 있어야 로드 가능\r\nt\u003dchkp.print_tensors_in_checkpoint_file(\u0027/home/scio/zepl/tensor/bitcoinPred/model/20181111_2128__700000_100_30/0.008737497\u0027, tensor_name\u003d\u0027\u0027, all_tensors\u003dTrue)",
+      "user": "ghsehr1",
+      "dateUpdated": "2018-11-14 23:59:39.480",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "tensor_name:  beta1_power\n0.0\ntensor_name:  beta2_power\n0.0\ntensor_name:  rnn/logits_biases\n[ 0.01359236  0.35502177  0.40890583 -0.17490976  0.5881853  -0.3949215\n  0.11308833]\ntensor_name:  rnn/logits_biases/Adam\n[-0.01102503 -0.02763598  0.00612446 -0.01857837  0.00325322 -0.00271203\n  0.00177226]\ntensor_name:  rnn/logits_biases/Adam_1\n[0.1374932  0.34386936 0.2933875  0.2593142  0.06803317 0.07022366\n 0.1091918 ]\ntensor_name:  rnn/logits_weights\n[[-0.04922392  0.03149482 -0.06867902 ...  0.04000429 -0.01129602\n  -0.06800678]\n [ 0.04505187 -0.04935482 -0.05191353 ...  0.11184707  0.04175275\n   0.12904942]\n [-0.05376355  0.07308121 -0.08367581 ... -0.1207958  -0.17001034\n  -0.00703056]\n ...\n [-0.04913856  0.02132655 -0.11791768 ... -0.06008793  0.00329994\n  -0.03649661]\n [-0.06313534  0.06361683  0.05448465 ...  0.08136939  0.0258902\n  -0.05043239]\n [-0.08802193 -0.08818835  0.01678766 ...  0.15426564  0.14965256\n  -0.06385777]]\ntensor_name:  rnn/logits_weights/Adam\n[[-4.2055713e-04  1.7730065e-03 -1.8802760e-03 ... -6.3613214e-04\n   1.8933202e-03  1.0648614e-03]\n [ 3.2695087e-03  7.6686176e-03 -1.1935346e-03 ... -1.8693423e-03\n  -6.2679971e-04 -2.1583776e-03]\n [ 4.6523889e-03  1.0353081e-02 -2.2045376e-03 ... -9.0454036e-04\n   1.2073438e-03 -7.4235577e-04]\n ...\n [-3.0875588e-03 -1.1456186e-02  1.4916608e-04 ... -1.7509183e-03\n   7.8301702e-04  2.1524925e-04]\n [-3.3205159e-03 -1.2450744e-02  2.1937448e-03 ...  1.4232236e-03\n  -1.4940918e-03  8.1254162e-05]\n [ 4.8098592e-03  1.1290154e-02 -2.3568962e-03 ... -5.5088336e-04\n   1.0620680e-03 -2.9863545e-04]]\ntensor_name:  rnn/logits_weights/Adam_1\n[[0.0032916  0.00791    0.00813919 ... 0.00151964 0.00190064 0.00257374]\n [0.00952481 0.02339493 0.01894061 ... 0.00462984 0.00446947 0.00737985]\n [0.01892277 0.04702204 0.04071443 ... 0.00952935 0.00981368 0.01514152]\n ...\n [0.00605202 0.01302921 0.00917312 ... 0.00336975 0.00284607 0.00502109]\n [0.01974744 0.04823068 0.04343539 ... 0.01027064 0.0098861  0.01561901]\n [0.01814575 0.04537128 0.03897825 ... 0.00889521 0.00926739 0.01430744]]\ntensor_name:  rnn/rc1_biases\n[ 3.14043686e-02  5.06480485e-02 -3.07099074e-02  3.79358232e-02\n -8.90103765e-05  2.96905227e-02 -1.76782031e-02 -6.56062290e-02\n -5.90294376e-02 -7.79407620e-02  4.58555371e-02  2.22884472e-02\n  1.07815310e-01  3.64118032e-02 -2.45576948e-02  6.64245337e-02\n -7.44351447e-02 -3.93132530e-02  3.45441736e-02 -6.04872480e-02\n -3.36780548e-02  4.08193888e-03  6.34555519e-02  1.91038568e-02\n  4.10655543e-04  2.74089985e-02 -1.41795035e-02  4.11954261e-02\n -2.74232142e-02 -1.43425670e-02  2.74268929e-02 -1.42317533e-01\n  5.92180490e-02 -3.83936279e-02 -2.85161659e-02 -6.13469398e-03\n  1.99373104e-02 -6.95671961e-02  1.85850840e-02 -1.18962470e-02\n -1.44114010e-02  8.61023664e-02 -1.86894387e-02 -4.76820245e-02\n -4.91352454e-02  6.30810708e-02 -2.67543271e-02 -4.09111977e-02\n  5.30905314e-02 -1.70598514e-02 -1.81744322e-02  8.04034341e-03\n  6.86611533e-02  7.74331391e-02 -1.04452595e-01 -7.22195804e-02\n  5.32631166e-02  9.66293644e-03 -6.13960214e-02  7.54473880e-02\n  5.00066578e-02  4.24736366e-02 -4.93557602e-02  8.67384523e-02\n -3.43771316e-02 -2.76601501e-02  4.73017134e-02 -1.01514664e-02\n -1.72996614e-02 -8.23562443e-02 -4.39223498e-02 -2.42354907e-02\n  5.95095232e-02  2.32919045e-02  8.80568251e-02  1.79231260e-02\n  8.05346966e-02  5.70898578e-02 -4.39409278e-02  4.78589162e-02\n  1.43479602e-02  7.14087263e-02 -4.92759086e-02  6.61760941e-02\n  3.72132589e-03 -2.55098119e-02 -7.34480377e-03  5.06389029e-02\n  4.05042991e-03 -3.63719277e-02 -2.59710569e-02 -2.19411217e-02\n -2.71978043e-03 -1.13875167e-02 -1.50764901e-02  6.08054847e-02\n -5.11403233e-02 -8.99301097e-02  3.27753946e-02 -3.77281941e-02\n -3.97233702e-02  1.65406754e-03  5.10855988e-02 -2.88220104e-02\n  1.96452551e-02 -1.46640940e-02 -1.89522579e-02  4.07261476e-02\n -2.02384610e-02 -4.67345864e-03  6.45342022e-02  2.48594120e-01\n  8.39044061e-03 -8.09694007e-02  1.19304350e-02 -2.93911621e-02\n  2.07293034e-02  1.37710935e-02  4.77820821e-02  8.71672016e-03\n -2.41719466e-02 -4.96530998e-03 -7.63400197e-02  5.93583733e-02\n -5.58616146e-02  6.39954954e-02  3.83167639e-02 -3.55602130e-02\n  1.67457722e-02  7.11445063e-02  1.22125009e-02  1.19218696e-02\n -7.26004466e-02  4.54280376e-02 -9.25260857e-02  6.33602366e-02\n -8.32540691e-02 -4.70991582e-02  8.02453607e-03  1.17980868e-01\n  3.31200883e-02  9.07198712e-02 -7.63182566e-02 -4.57870681e-03\n -3.80680971e-02  4.96125147e-02  7.74309933e-02  5.71148880e-02\n  3.64528187e-02  9.57079455e-02 -3.41006480e-02 -1.84159223e-02\n -2.49952283e-02  5.20926388e-03 -9.10737440e-02  8.25448260e-02\n -2.89140679e-02 -5.62509894e-02 -3.29660513e-02 -3.43151987e-02\n  2.37862077e-02  4.86754589e-02  6.41939193e-02  9.32054818e-02\n -4.82588150e-02 -1.04841098e-01 -4.38428335e-02  5.26038520e-02\n -7.33522251e-02  5.43372892e-02  9.09374580e-02  3.33742448e-03\n  8.39282200e-02  1.00572318e-01  6.98352456e-02 -4.22673523e-02\n  3.00523993e-02 -7.72229657e-02 -2.76708640e-02  1.18579541e-03\n  4.48920438e-03  9.57348570e-03 -4.31765355e-02  7.63933808e-02\n -2.64542317e-03  2.48671905e-03  2.37456895e-02  6.31224886e-02\n  7.68935159e-02 -4.75788750e-02 -2.77882516e-02 -3.31924036e-02\n -2.72411630e-02  6.67178165e-03 -4.67520244e-02  2.00273804e-02\n -4.47664857e-02 -3.70715447e-02 -2.15991437e-02  2.51238495e-02\n -6.13278672e-02 -2.58236341e-02  3.85975465e-02  6.49615703e-03\n -1.65322907e-02 -1.72884408e-02 -1.01565411e-02  7.88787007e-02\n -6.02947623e-02  5.62625863e-02 -1.60620175e-02  2.33702119e-02\n -6.43046275e-02  2.35170987e-03 -3.28772590e-02 -7.30025843e-02\n -9.51938611e-03  4.68544364e-02  9.29801241e-02  5.32100759e-02\n -7.70600736e-02 -5.40210754e-02 -5.97390607e-02  7.31753409e-02\n  5.12513965e-02  3.63479555e-02 -1.31869853e-01  3.71603575e-03\n -8.20038244e-02  3.41872275e-02 -7.34147131e-02 -7.79774562e-02\n  2.12998316e-02 -4.81380187e-02 -6.70755357e-02  3.12619656e-02\n  9.55742132e-03 -4.44135442e-02  1.03283398e-01  4.51534018e-02\n -6.70805573e-02  3.31665166e-02  5.60484044e-02 -8.20920989e-03\n  2.37003490e-02 -9.08882692e-02 -7.69027621e-02  1.38274068e-02\n -5.62891103e-02 -6.19233474e-02  5.93971973e-03  1.48334634e-02\n  4.50380929e-02  1.04530985e-02 -7.80454185e-03  2.23508775e-02\n -5.97546622e-02 -2.89818384e-02 -4.57810946e-02 -4.08290103e-02\n -1.23588368e-02 -1.01946607e-01 -7.22238645e-02 -8.39774311e-02\n -2.66328156e-02  5.55061065e-02 -3.95528004e-02  3.79929766e-02\n -2.61833053e-02 -7.72965625e-02  7.72816911e-02  1.96851064e-02\n  9.09843743e-02 -7.82465469e-03  8.45406130e-02  5.44057339e-02\n -8.34541172e-02 -2.42702104e-02 -1.81605108e-02 -1.98002178e-02\n -6.45107627e-02 -1.04794398e-01 -9.05161723e-02  3.15715484e-02\n -3.31875347e-02  8.00703391e-02  6.56272843e-02 -1.37065277e-01\n -7.66776921e-03  9.63071585e-02 -8.11042786e-02  8.41010585e-02\n -2.85699554e-02 -7.10053891e-02 -8.93913060e-02 -1.43533554e-02\n  6.55764490e-02 -3.45296152e-02 -4.68131863e-02  3.94861549e-02\n -5.38062789e-02 -1.48134166e-03  6.89065680e-02  5.11842109e-02\n -9.27175954e-03 -4.94526252e-02  6.65923283e-02  5.77884652e-02\n -3.58543657e-02  4.67437692e-02 -6.33318676e-03 -6.77012056e-02\n  3.48912291e-02  5.24042174e-02  6.18850626e-02  4.63812277e-02\n  1.00094497e-01  1.71672981e-02 -4.00723591e-02 -9.23332816e-04\n -7.71025643e-02  4.56103608e-02 -5.21813333e-02  4.20815423e-02\n -1.74555101e-03 -8.76775011e-02 -8.75566155e-02  3.52952331e-02\n  3.09438761e-02 -2.79842364e-03 -4.84255962e-02  5.78709133e-02\n  3.42862345e-02  6.37493432e-02  3.42153795e-02 -6.73224702e-02\n -2.60323584e-02 -8.37507378e-03  3.47049199e-02 -2.69799624e-02\n -9.56858024e-02 -7.16256201e-02 -5.52559122e-02 -5.99753372e-02\n  4.96319458e-02  1.22249974e-02  9.13956091e-02  1.75808463e-02\n -2.66806576e-02  2.69143581e-02  5.03442846e-02 -2.87554264e-02\n -1.71862189e-02 -2.33577956e-02 -6.72023967e-02 -5.08003756e-02\n -2.33416613e-02 -3.91543703e-03 -2.18340643e-02 -1.30115151e-01\n  8.19638595e-02 -6.20961525e-02 -7.35377707e-03 -1.39598595e-02\n  1.07056610e-02 -2.01185606e-02  4.00134809e-02 -8.48774314e-02\n -4.85826582e-02  7.58984759e-02 -3.88986953e-02 -6.77360818e-02\n -3.34283225e-02  4.69650626e-02 -1.33361463e-02 -2.71289218e-02\n -2.53891572e-03  8.55408758e-02  8.79099593e-02  5.46221323e-02\n  1.80679909e-03 -1.84698831e-02 -4.17131633e-02 -1.82241686e-02\n  1.15856618e-01  6.69451728e-02 -7.03018997e-03 -1.14062764e-02\n -1.03271641e-02 -7.63912499e-02 -4.45114868e-03 -2.44230106e-02\n  2.23601833e-02  5.49532138e-02  5.09992056e-02 -1.00765470e-02\n -8.85908529e-02 -5.28373234e-02  1.68015324e-02 -7.63226897e-02\n  4.21119779e-02 -6.76820800e-02  1.24637425e-01  4.53274362e-02\n -5.75549491e-02  4.24084775e-02  7.47380720e-04 -1.09350950e-01\n  5.31363599e-02  1.05810493e-01  9.09959525e-03 -8.51390585e-02\n -4.79752384e-02 -8.80397260e-02 -1.77594628e-02  3.71210873e-02\n -7.61761814e-02  8.66239220e-02  1.25571173e-02  2.86197811e-02\n -1.94913596e-02  1.87257510e-02 -5.68563528e-02  1.01100586e-01\n  6.71378225e-02  2.60505192e-02  5.25699444e-02 -6.98942617e-02\n -8.94277543e-02  6.83488399e-02  1.40853405e-01  1.23872915e-02\n  2.72202604e-02  1.21644445e-01  6.46230802e-02 -4.98544537e-02\n -5.02952784e-02 -5.26386723e-02 -5.66745102e-02  4.97213267e-02\n -4.38600183e-02  7.04087615e-02  7.28967041e-02  1.30979061e-01\n -5.45516573e-02 -6.17954992e-02 -6.49989694e-02 -5.64359948e-02\n -1.72045920e-02 -3.07067167e-02 -5.25849611e-02 -7.54277557e-02\n  7.79089332e-02  3.50926816e-02 -5.02541848e-02  2.39907559e-02\n -3.33358580e-03 -1.01976566e-01 -3.97139303e-02 -3.13236751e-02\n  8.00207630e-02  5.65125979e-02 -1.67011134e-02 -1.63760539e-02\n  4.98018228e-03 -4.78097759e-02 -8.04217905e-02 -4.47308868e-02\n  1.34649118e-02 -5.37737459e-02 -5.09075895e-02  4.37624715e-02\n  6.33341148e-02  7.01644877e-03  7.82014057e-02  9.74184740e-03\n  9.62975994e-02 -4.25990373e-02 -6.68690428e-02  1.69793256e-02\n -7.13337585e-02 -1.70842055e-02 -5.38906157e-02 -6.80774450e-02\n  4.73355642e-03  6.91375583e-02 -7.47292563e-02 -1.05216771e-01\n -9.95299369e-02 -3.02697327e-02 -2.00560875e-02  1.20333172e-02\n  5.46856895e-02  2.11745631e-02 -8.12646002e-02  8.89997333e-02\n  1.41946338e-02  1.39950765e-02  9.47104171e-02 -3.00283320e-02\n -1.16836838e-02 -1.02909515e-02  9.63819679e-03 -5.37204705e-02\n -2.62564644e-02  1.39779583e-01  2.70970608e-03 -4.10784557e-02\n -6.45657703e-02  3.03178187e-02 -9.28028077e-02  4.43135053e-02]\ntensor_name:  rnn/rc1_biases/Adam\n[ 1.17736519e-03  1.37863751e-03 -3.84276587e-04  7.44218472e-04\n -1.56990645e-04 -6.42587955e-04  1.82375219e-03  3.95476678e-03\n -2.43815803e-03 -3.19383666e-03  8.01438466e-04  8.06763710e-05\n  1.14959560e-03  9.41408915e-04 -8.88483890e-04  2.76260107e-04\n -1.30223250e-03  5.00190188e-04 -7.34286499e-04 -1.39354379e-03\n  1.13949063e-03  6.36790879e-04 -2.51605804e-03  5.70738339e-04\n  7.38811260e-03 -2.95257289e-03  2.32821773e-03  1.63385208e-04\n -9.31500632e-04  2.47633224e-03 -8.33174970e-04 -9.17899422e-04\n -2.01594154e-03  3.67677130e-04  4.61610674e-04  3.00964387e-03\n -1.91994593e-04  2.02390458e-03  2.58458965e-03 -1.90973608e-03\n  8.80600237e-06  4.96864486e-05  5.41097950e-04 -2.03795428e-03\n -1.13203627e-04 -2.71362229e-03 -9.44394618e-04  5.58148779e-04\n  6.73337490e-04 -2.17502471e-03 -2.53044488e-03 -2.09447811e-04\n  1.14136527e-03  3.09981522e-04  1.91800777e-04  3.03597015e-04\n  7.33470486e-04 -2.29194714e-03  1.63388322e-03 -9.93785565e-04\n  3.11660068e-03  6.98849792e-04  1.72687054e-03  1.82702599e-04\n  1.18291553e-03 -3.79393226e-03 -1.94845826e-03  4.21003526e-04\n -2.39839847e-03 -3.00325733e-03  3.27768241e-04  1.72480464e-03\n -1.22225110e-03  3.46260436e-04  1.56982162e-04  3.41627601e-04\n -7.69383565e-04 -8.53169709e-04 -7.21627614e-04  6.74457056e-03\n -5.27592085e-04 -6.71395916e-04  2.11487495e-04  3.40584636e-04\n  1.81959462e-04 -1.23917405e-03 -2.06493796e-03 -1.13318756e-03\n -8.20967311e-04 -1.38408490e-04  1.45434553e-03  3.73103656e-03\n -4.76164598e-04 -4.85823439e-05  3.54756412e-05 -1.56857620e-03\n  5.78379986e-05  8.40192311e-04 -8.28228192e-04  8.16149113e-05\n -1.45861331e-05  1.83739199e-03 -2.62303540e-04 -2.95497081e-03\n -1.31849560e-03 -1.59115228e-03 -1.18632731e-03  8.46743700e-04\n  1.30471890e-03  2.89584207e-03 -1.07256253e-03  2.66174283e-07\n  2.13892956e-04 -2.93828361e-03 -2.56164465e-04  1.23652699e-05\n  2.54674489e-03 -1.42895873e-03  5.12617594e-03 -5.06470620e-04\n  3.40152561e-04  5.70169010e-04  1.05040125e-03  1.62706722e-03\n  2.94894882e-04 -2.47023860e-03  1.45960506e-03 -1.07090699e-03\n -1.67745852e-03  1.74704834e-03  5.55007602e-04 -4.41649245e-05\n  1.53970649e-03 -8.63610709e-04 -2.18997848e-05 -2.54636165e-04\n  1.58819440e-03  3.07430950e-04 -1.34806137e-03 -3.38497711e-03\n  2.74844212e-03  7.02575373e-04  6.96642674e-04 -1.29989162e-03\n -3.94212169e-04  3.23507213e-03  1.45698059e-03  2.00379733e-03\n  2.39144443e-04 -1.83013719e-04 -2.73795635e-03  2.36122613e-03\n  1.86064790e-04 -8.93680262e-04 -2.41664029e-03  2.09372677e-03\n  1.20354840e-03 -9.00999585e-05 -3.54856515e-04 -9.69090543e-05\n  2.56183976e-03 -5.78463514e-05 -1.06777225e-04 -1.68585544e-03\n  4.55498579e-04  5.66589297e-04  3.84013838e-04 -6.72530616e-04\n -3.13703227e-03 -1.87268853e-03 -8.61717563e-04  3.68995970e-05\n -1.46226666e-03 -2.02012225e-03 -3.69423418e-04 -3.69330577e-04\n  1.22959944e-04  2.79022206e-04  1.10533880e-03 -2.81434273e-03\n  3.46325687e-04 -1.16507383e-03 -2.33897869e-03 -4.69565624e-04\n  5.04077529e-04  1.48243198e-04  2.31062016e-03 -2.42391136e-04\n -1.05422828e-03  1.68785895e-03  1.06193207e-03 -7.00734323e-04\n -6.03993074e-04  3.05809081e-04  2.42052879e-03  1.12860242e-03\n  2.15472115e-04  7.12632434e-04 -2.41368776e-04 -1.79622788e-04\n -1.40275661e-04 -2.25248141e-03  6.11246389e-04 -1.16299663e-03\n -8.75093392e-04  2.51486665e-04  2.91779684e-03  2.05757539e-03\n -1.78576726e-03  1.75064558e-03 -5.07164455e-04  9.91899054e-04\n  7.32982371e-05 -6.06524991e-04  3.49989976e-03 -1.20397040e-03\n -1.26475305e-03  2.10838451e-04 -2.12275703e-03 -6.27453090e-04\n -2.52272788e-04 -5.64650691e-04 -2.56943330e-03  2.99189502e-04\n  1.39734452e-03 -1.76024775e-03 -3.76778917e-04  8.55830731e-04\n  9.13616095e-04  4.10885643e-03  1.69112245e-04  3.42269754e-03\n -3.98819793e-05  2.17036251e-03  7.35377078e-04 -1.04650797e-03\n -1.47437199e-03  1.13411271e-03 -9.67911037e-04 -8.74490477e-04\n  4.26539511e-04 -6.89009961e-04  2.83424649e-03 -4.92469582e-04\n -1.74843636e-03  7.97441462e-04  8.43608112e-04 -7.62612792e-04\n  3.27430462e-04 -1.43082603e-03  2.96946528e-04  2.88476353e-04\n  1.81888448e-04  5.08252524e-05  2.46419921e-03 -7.51104206e-04\n  8.21397407e-04  4.14227694e-03  8.59420281e-04  8.58240819e-04\n -5.14480489e-05 -2.58879791e-05 -1.37626790e-04  3.04042082e-03\n  2.25542998e-03 -5.12874860e-04  9.01139807e-04 -3.08127911e-03\n  1.69222336e-03  2.24539428e-03 -1.05639407e-03 -1.82861567e-03\n  1.06656757e-04 -1.44473132e-04  2.44730874e-03  1.42549502e-03\n  7.38576113e-04  2.94298655e-03  1.63972072e-04  4.34615737e-04\n -2.53537495e-04  1.35162810e-03 -6.73641509e-04 -2.64678104e-03\n  8.06039665e-04  3.59794853e-04  1.82743231e-03 -2.80854321e-04\n -2.52097938e-03 -5.07974415e-04  4.05219063e-04  2.48211029e-04\n -2.22084974e-03  1.40198634e-03  2.33753282e-03 -5.41443296e-04\n  7.83583790e-04  2.66100775e-04 -4.54330817e-03 -5.68997464e-04\n  6.93637121e-04  3.07562482e-03 -2.08156928e-03  1.11850712e-03\n -3.27428407e-03  3.77558317e-04 -9.37721517e-04  2.64571339e-04\n -4.73798515e-04 -6.27865549e-04 -2.08347267e-03 -5.87044051e-03\n  2.97519914e-03  2.54514068e-03 -1.04942788e-04 -1.03530881e-04\n  1.77739281e-03 -3.29120015e-03 -1.02478359e-03  7.11159373e-04\n  1.30965345e-04  3.17825493e-03 -1.85734464e-03 -9.28609341e-04\n -7.47514598e-04  1.75889314e-03 -2.40079057e-03  1.98304094e-03\n -1.86862599e-03  1.21360167e-03  5.95578516e-04  1.55724920e-04\n  2.61748815e-03  2.91343126e-03  2.43843510e-03 -3.67331668e-03\n  3.61278799e-04 -2.05704151e-03  3.67651088e-03  5.86943817e-04\n  3.74567439e-03 -9.90710570e-04  1.29761908e-03  1.36045192e-03\n -6.71689748e-04 -1.50900066e-03 -1.86375796e-03  8.12664686e-04\n -1.18476106e-03 -8.19205481e-04  1.15147349e-03 -1.06374070e-03\n -5.18676243e-05  7.79609149e-03  1.13628618e-03 -3.50392831e-04\n  6.41154125e-04  1.13845128e-03  1.24140934e-03  3.58302277e-05\n  1.40422070e-03 -2.43624696e-03 -6.31725066e-04 -1.24202413e-03\n  1.73408911e-03  4.55649715e-04 -2.28401623e-03  9.20714869e-04\n -2.20582192e-03 -1.48972031e-03 -2.35407831e-04 -3.02582077e-04\n -1.32405525e-03  1.84347999e-04  2.71591649e-04 -1.83413591e-04\n  2.82345735e-03  5.26900985e-04  9.28288573e-05  1.73568842e-03\n  3.55830707e-04 -1.21320563e-03  1.25772075e-03 -7.72056112e-04\n  7.65591278e-04 -3.42786923e-04 -1.68851519e-03  6.59549318e-04\n  9.39802092e-04 -3.98372486e-03 -1.49658683e-03 -2.33998592e-03\n  2.46090628e-03  1.05362118e-03 -3.08943633e-03 -1.53502345e-03\n  5.32639562e-04 -9.98612959e-04  3.86528845e-04  7.70538696e-04\n -4.95244865e-04 -4.69564693e-04 -6.94544055e-04  4.55247238e-04\n  7.76043220e-04  1.75866892e-03 -4.23808262e-04 -6.03716471e-04\n  1.26233429e-03  6.10301620e-04  1.86622259e-03  2.68295466e-04\n -2.81138695e-04  8.25217576e-04 -1.49299356e-03 -7.53618369e-05\n  2.69532175e-04  2.00871891e-05  5.39315843e-05  4.68706770e-04\n -1.89274375e-03 -2.23008427e-03 -1.15001960e-04 -1.42506207e-03\n  2.40971567e-03  3.78269120e-04  5.57060586e-04  8.65446113e-04\n -1.06725791e-04  2.08387952e-04 -1.87213079e-03  1.07723672e-03\n  1.80591785e-04 -1.04915933e-03  2.20426082e-04 -1.46291300e-03\n  4.27717576e-03 -8.97685590e-04 -1.32238807e-03 -3.18563514e-04\n -1.98102836e-03 -1.16259349e-03 -1.06461521e-03 -2.91835458e-04\n -1.36297150e-03  5.11954015e-04  8.24942777e-04  1.56126777e-03\n -2.59264430e-04 -9.53603478e-04 -1.54775858e-04  1.52502820e-04\n  4.90869395e-04 -8.51221499e-04  2.06570118e-03 -6.14221557e-04\n -3.95914976e-04 -2.60600029e-03 -1.78907369e-03  8.37081764e-03\n -5.70041710e-04 -2.35962030e-03 -2.11488397e-04  1.03386272e-04\n -2.17931042e-03 -4.52443637e-04 -2.67752796e-07  1.91216322e-03\n  1.83703692e-03  1.05670886e-03  9.02705477e-04 -5.38388907e-04\n  2.86818453e-04 -6.56322925e-04  6.25404180e-04  6.03689870e-04\n -2.18902700e-04  1.06235508e-04  2.66680401e-03  2.90460372e-03\n  4.91222541e-04  1.88288174e-03 -1.80356146e-03 -2.80095357e-03\n -1.68755453e-03  5.32813719e-04 -1.96222260e-04  2.22489308e-03\n -2.21871771e-03  6.79104065e-04  3.96206789e-03  3.43703490e-04\n  1.32862374e-03  1.76030840e-03 -8.66035232e-04 -6.82514627e-04\n  2.11924966e-03  1.02105702e-03  1.05607067e-03  1.14188268e-04\n  3.17115831e-04 -1.62044686e-04 -1.84860837e-03  9.39798065e-06\n  2.56832177e-03  1.56423281e-04  5.28210250e-04  4.62178345e-04\n  2.35971384e-04 -1.38454678e-04  3.57352430e-04  1.05355447e-03]\ntensor_name:  rnn/rc1_biases/Adam_1\n[7.94106163e-03 3.86259228e-04 3.62695864e-04 4.13845247e-03\n 2.20233502e-04 5.08036523e-04 2.44026026e-03 1.20486878e-02\n 1.85120420e-03 3.43789696e-03 4.47791768e-03 3.87567823e-04\n 3.07430886e-03 1.63478090e-03 1.61696586e-03 2.77391635e-03\n 5.45649498e-04 9.51068883e-04 1.03241729e-03 1.93863292e-03\n 3.23404092e-03 7.08926818e-04 3.34860082e-03 8.31544306e-03\n 1.45299155e-02 2.88466341e-03 2.01473106e-03 3.02916416e-03\n 2.15659104e-03 4.77427244e-03 1.15115859e-03 4.83208074e-04\n 1.83721480e-03 1.44674361e-03 3.07043223e-03 1.93879323e-03\n 3.99964076e-04 1.37023244e-03 1.12125836e-03 9.56191041e-04\n 8.96709389e-05 1.59105309e-03 7.28524756e-04 8.97413935e-04\n 8.63721594e-04 1.95329473e-03 5.69582917e-04 2.91114207e-03\n 3.46899265e-03 4.01855353e-03 3.36950133e-03 8.07269360e-04\n 9.71608330e-04 6.44705549e-04 4.51869419e-05 3.41733592e-03\n 4.56155324e-03 6.83454890e-03 1.03838425e-02 1.14783132e-03\n 2.43142876e-03 2.14186628e-04 9.27413523e-04 2.20578266e-04\n 7.50794134e-04 2.89356010e-03 6.40186947e-04 1.87965366e-03\n 4.07367479e-03 3.95470718e-03 7.77011213e-04 5.98654151e-04\n 2.26716837e-03 1.31473714e-03 5.11555059e-04 9.52829199e-04\n 3.79330217e-04 4.39140567e-04 2.51125370e-04 1.23409480e-02\n 4.37171478e-03 2.96341535e-03 9.12087737e-04 2.42672954e-03\n 1.81154785e-04 1.70775584e-03 5.43923350e-04 1.11442863e-03\n 4.13832814e-03 7.79110880e-04 6.36995304e-04 5.91910630e-03\n 8.86432710e-04 1.13197393e-03 1.90715445e-03 2.32891389e-03\n 3.20281205e-03 7.44625810e-04 2.05572345e-03 2.96566891e-03\n 1.57087273e-03 4.59925737e-03 2.93081719e-03 1.58206327e-03\n 8.02124618e-04 2.18497124e-02 2.53473845e-04 2.51067081e-03\n 1.59459503e-03 6.77119801e-03 6.45806897e-04 5.05730554e-07\n 3.37337260e-03 1.80242932e-03 1.89311092e-03 3.35447770e-03\n 3.43819009e-03 7.08559412e-04 1.00169471e-02 1.23906659e-03\n 1.06062309e-03 6.42940111e-04 1.99855492e-03 3.07388115e-03\n 1.59700762e-03 2.14887038e-03 1.73483463e-03 5.17162902e-04\n 1.51049823e-03 3.99489515e-03 1.25119369e-03 1.51676685e-03\n 1.59914768e-03 1.80413225e-03 9.42282903e-04 6.33936375e-03\n 2.34497315e-03 1.57806079e-03 2.27849255e-03 1.46942865e-03\n 4.86198580e-03 1.06945704e-03 3.13015049e-03 2.19770451e-03\n 1.05642981e-03 4.06174827e-03 3.19988490e-03 4.66924254e-03\n 4.16067924e-04 3.82323691e-04 4.34558233e-03 1.15484267e-03\n 4.00142651e-03 3.75472591e-04 1.69283722e-03 3.21754511e-03\n 2.44923867e-03 8.73517012e-04 7.78448812e-05 4.92272025e-04\n 1.72100775e-03 2.49999634e-04 1.18702024e-04 5.18665882e-04\n 5.02881885e-04 1.93877626e-04 1.02004292e-03 1.69818394e-03\n 6.26961701e-03 3.43200564e-03 3.20985215e-04 1.58821946e-04\n 7.01005105e-03 4.53855435e-04 1.00505201e-03 6.53878495e-04\n 4.21175500e-04 6.34298849e-05 2.63177353e-04 2.25740997e-03\n 6.05384586e-04 2.12901807e-03 8.05082917e-03 1.74231056e-04\n 8.41096416e-03 1.18222342e-04 2.64411326e-03 2.02750569e-04\n 2.37568573e-04 2.92164739e-03 6.27369387e-04 1.32475200e-03\n 9.47623106e-04 6.25410490e-03 2.83833826e-03 1.50706945e-03\n 1.87761892e-04 1.84616353e-03 8.95107514e-04 6.12168107e-04\n 1.16399229e-02 2.23235600e-03 1.49478926e-03 1.98379438e-03\n 2.74829892e-03 1.78823259e-03 1.00924179e-03 8.26247560e-04\n 1.64092123e-03 2.08928133e-03 6.20809966e-04 6.55135897e-04\n 6.74699550e-04 1.29066943e-03 6.78647729e-03 1.63832319e-03\n 1.54706032e-03 2.90094363e-03 1.58262090e-03 5.06629585e-04\n 1.39372773e-03 3.15185986e-03 5.57308737e-03 1.90660020e-03\n 1.03419391e-03 1.53112295e-03 3.26916488e-04 2.75502237e-03\n 1.22053770e-03 3.26398620e-03 6.61390484e-04 2.64388532e-03\n 5.27303340e-03 2.68422416e-03 5.54274535e-04 5.85711270e-04\n 8.10719153e-04 2.89053703e-03 3.01105203e-04 3.60417226e-03\n 1.74341269e-03 1.16487767e-03 1.93532300e-03 1.42310036e-03\n 8.86720198e-04 2.02252134e-03 2.35428428e-03 1.27411762e-03\n 8.88878887e-04 2.87447637e-03 1.05753820e-03 1.56868703e-03\n 2.67333118e-03 6.18722916e-05 9.37514845e-03 1.21978624e-03\n 1.87805592e-04 6.53782813e-03 4.62885899e-03 1.50128140e-03\n 1.20228657e-03 1.33484881e-03 8.29924829e-04 9.44213476e-04\n 1.45918154e-03 1.02056353e-03 3.60224419e-03 2.04518461e-03\n 5.44064271e-04 7.69020058e-04 3.73194274e-03 5.98506909e-03\n 1.02397182e-03 9.44625353e-04 3.86003056e-03 1.98896672e-03\n 4.71487036e-03 1.54139008e-03 4.47066640e-03 9.47431894e-04\n 1.96558540e-03 2.74286373e-03 2.93109711e-04 3.13864462e-03\n 1.11148856e-03 9.22667503e-04 4.49619908e-03 2.29474274e-04\n 4.15351279e-02 1.04174409e-02 1.81529220e-04 3.68544366e-03\n 2.35801842e-03 1.72714388e-03 2.61497265e-03 2.90794182e-03\n 1.92396040e-03 1.40591487e-02 1.50525710e-03 1.88992918e-03\n 7.22403266e-03 7.61094969e-04 5.59965847e-04 3.14955786e-02\n 3.73315183e-03 3.83098260e-04 4.62982524e-03 9.58995137e-04\n 1.97682311e-04 7.02199410e-04 5.35196252e-03 9.62302834e-03\n 3.18624079e-03 2.69346265e-03 2.47659395e-03 1.09479507e-03\n 3.23474687e-03 2.73577962e-03 3.10503226e-03 7.49120780e-04\n 1.05516100e-02 7.23418361e-03 1.87343103e-03 1.93643034e-03\n 1.75309100e-03 5.51517447e-03 5.95023856e-03 3.03809927e-03\n 9.97094205e-04 3.49324849e-03 7.21381512e-04 2.48373742e-03\n 1.61172717e-03 4.87618585e-04 1.89208752e-03 1.94412784e-03\n 3.26931640e-03 1.17724086e-03 3.06462287e-03 2.56644958e-03\n 3.70973325e-03 1.12457690e-03 2.15119100e-03 1.21249165e-03\n 4.15153452e-04 6.44759415e-03 5.61293215e-04 6.99623663e-04\n 1.14841098e-02 1.04841427e-03 1.46256736e-03 1.81148632e-03\n 2.54077051e-04 1.14772404e-02 9.21059516e-04 1.41697284e-03\n 4.51985188e-03 2.99992878e-03 3.39562073e-03 3.62034654e-04\n 2.75454274e-03 1.43131393e-03 3.26696259e-04 3.47063225e-03\n 6.29951071e-04 7.85433163e-04 6.37992693e-04 3.33563099e-03\n 1.61123218e-03 2.54160841e-04 2.71982397e-04 1.77645311e-03\n 9.68504464e-04 1.68191222e-03 2.74780137e-03 4.45761252e-04\n 3.68783344e-03 1.50969508e-03 8.78184801e-04 1.21527363e-03\n 2.82841548e-03 1.74554100e-03 5.66392962e-04 7.67585821e-04\n 2.24525022e-04 2.36762012e-03 9.45062027e-04 4.95685614e-04\n 1.73722196e-03 6.71374204e-04 1.29118096e-03 1.15039654e-03\n 1.45729212e-03 5.03386976e-03 1.13958092e-02 3.07526276e-03\n 7.81932147e-04 7.63071293e-04 4.52057371e-04 4.85088938e-04\n 4.18020471e-04 6.50178990e-04 2.16094078e-03 2.09602341e-02\n 2.29312200e-03 5.94071520e-04 8.61752138e-04 3.00900778e-03\n 3.38871265e-03 5.98822837e-04 6.16109231e-04 3.25072207e-04\n 2.07281485e-03 2.08915025e-03 4.82874166e-04 2.25327257e-03\n 1.67467433e-03 7.42379852e-05 1.11525715e-03 3.71093838e-03\n 6.09785412e-03 8.52118654e-04 3.29506933e-04 6.50059897e-03\n 1.21707469e-02 1.93631917e-03 6.65126077e-04 4.58746508e-04\n 1.20394106e-03 1.40729977e-03 5.07202349e-04 2.50657578e-03\n 3.60704889e-03 6.49029622e-04 7.50250276e-03 4.36592335e-03\n 3.60623770e-03 5.60088875e-03 2.82665715e-03 1.04471447e-03\n 1.45909598e-03 4.67484293e-04 5.18331653e-04 1.09125569e-03\n 8.11275851e-04 1.76099665e-03 1.37932098e-03 3.23532848e-04\n 3.44133063e-04 1.32767344e-03 1.26771990e-03 3.28495633e-04\n 1.66153209e-03 1.86432363e-03 1.54494552e-03 5.63961687e-04\n 1.36390992e-03 5.13339590e-04 1.24220550e-03 1.23760290e-02\n 2.22580018e-03 3.51694878e-03 1.66892516e-03 1.61166012e-03\n 3.59756220e-03 1.71405525e-04 3.29187547e-04 1.63855869e-03\n 2.98103620e-03 1.37179065e-03 2.23895931e-03 5.46432973e-04\n 2.17251465e-04 7.97412591e-04 5.98812185e-04 1.57247868e-03\n 7.05423474e-04 1.11056992e-03 3.32389935e-03 1.13210166e-02\n 8.81112588e-04 5.75612579e-03 3.08229146e-03 3.03333462e-03\n 3.26349866e-03 1.37016422e-03 2.08177924e-04 1.51616789e-03\n 1.98315224e-03 8.63784866e-04 3.85507522e-03 5.59119333e-04\n 1.25262479e-03 2.81804986e-03 4.43290657e-04 6.99237979e-04\n 9.08793590e-04 9.17225145e-04 9.38848709e-04 8.64575326e-04\n 7.88065419e-03 4.03506099e-04 9.03046341e-04 5.38243446e-03\n 1.92714634e-03 1.09240667e-04 1.83282231e-04 2.14638305e-03\n 8.85056274e-04 7.74791325e-03 1.46545528e-04 1.15353917e-03]\ntensor_name:  rnn/rc1_weights\n[[-0.08617637  0.04107859 -0.02870681 ... -0.06548561  0.02944815\n  -0.05190522]\n [-0.08291087 -0.05424638  0.00237776 ... -0.02190757 -0.05316098\n  -0.04618121]\n [-0.07899398  0.03200327  0.04884573 ... -0.02888038  0.02681983\n  -0.07879537]\n ...\n [ 0.02695457  0.04197893 -0.06443947 ...  0.15715672  0.06849904\n   0.08281008]\n [ 0.06942223  0.03311389 -0.02825594 ...  0.08027919  0.2141699\n   0.0194013 ]\n [-0.08252314  0.02885954  0.03572407 ...  0.01616059 -0.0406448\n   0.10313748]]\ntensor_name:  rnn/rc1_weights/Adam\n[[-3.13395198e-04  6.37509685e-04 -1.64688347e-04 ... -9.33510310e-05\n   4.71169624e-04  5.01812174e-05]\n [-3.96526506e-04  6.93596201e-04 -2.55307183e-04 ... -2.53114064e-04\n   4.70001978e-04  6.94979535e-05]\n [ 2.88836709e-05  7.87411584e-04 -8.12936923e-05 ... -2.60767702e-05\n   3.97635420e-04  2.05213699e-04]\n ...\n [ 5.43180737e-04  6.60361140e-04 -1.31495748e-04 ...  7.07787040e-05\n  -1.00758400e-04  3.76818731e-04]\n [ 5.23549097e-04  5.69816155e-04 -1.20809673e-04 ... -7.03923797e-05\n  -1.13489086e-05  2.00889990e-04]\n [-3.97505879e-04 -4.47611877e-04 -7.04716285e-06 ... -1.13525864e-04\n  -1.38283562e-04 -1.96484398e-04]]\ntensor_name:  rnn/rc1_weights/Adam_1\n[[3.1111687e-03 2.2167212e-04 2.4402582e-04 ... 6.4606261e-03\n  1.6134960e-04 3.8530357e-04]\n [2.9858211e-03 2.1240159e-04 2.4553403e-04 ... 6.3922266e-03\n  1.7239030e-04 3.7924186e-04]\n [3.1004774e-03 2.2746628e-04 2.4616424e-04 ... 6.5108514e-03\n  1.4643752e-04 3.7067427e-04]\n ...\n [2.8160005e-04 3.1740838e-05 1.3924451e-05 ... 4.5953126e-05\n  1.0476374e-05 7.7383695e-05]\n [1.1488983e-03 6.0538176e-05 5.2569172e-05 ... 1.1641608e-03\n  3.9691454e-06 1.4189546e-04]\n [1.0169791e-03 5.0175538e-05 4.3599583e-05 ... 1.0315584e-03\n  1.4717269e-05 7.8229743e-05]]\n\u001b[0;31m---------------------------------------------------------------------------\u001b[0m\n\u001b[0;31mTypeError\u001b[0m                                 Traceback (most recent call last)\n\u001b[0;32m\u003cipython-input-36-b97ebd873d9b\u003e\u001b[0m in \u001b[0;36m\u003cmodule\u003e\u001b[0;34m()\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0;32mfrom\u001b[0m \u001b[0mtensorflow\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mpython\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mtools\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0minspect_checkpoint\u001b[0m \u001b[0;32mas\u001b[0m \u001b[0mchkp\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      2\u001b[0m \u001b[0;31m# tf_model.ckpt.index와 tf_model.ckpt.data가 동시에 있어야 로드 가능\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----\u003e 3\u001b[0;31m \u001b[0mt\u001b[0m\u001b[0;34m\u003d\u001b[0m\u001b[0mlist\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mchkp\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mprint_tensors_in_checkpoint_file\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\u0027/home/scio/zepl/tensor/bitcoinPred/model/20181111_2128__700000_100_30/0.008737497\u0027\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mtensor_name\u001b[0m\u001b[0;34m\u003d\u001b[0m\u001b[0;34m\u0027\u0027\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mall_tensors\u001b[0m\u001b[0;34m\u003d\u001b[0m\u001b[0;32mTrue\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\n\u001b[0;31mTypeError\u001b[0m: \u0027NoneType\u0027 object is not iterable"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1542205065974_-1875423635",
+      "id": "20181114-231745_328877336",
+      "dateCreated": "2018-11-14 23:17:45.974",
+      "dateStarted": "2018-11-14 23:59:21.160",
+      "dateFinished": "2018-11-14 23:59:21.246",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "",
+      "user": "ghsehr1",
+      "dateUpdated": "2018-11-14 23:59:28.673",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "NoneType"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1542207458776_1071630641",
+      "id": "20181114-235738_486940967",
+      "dateCreated": "2018-11-14 23:57:38.776",
+      "dateStarted": "2018-11-14 23:59:24.766",
+      "dateFinished": "2018-11-14 23:59:24.847",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "user": "ghsehr1",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1542207503891_-1275696544",
+      "id": "20181114-235823_833739194",
+      "dateCreated": "2018-11-14 23:58:23.891",
+      "status": "READY",
       "progressUpdateIntervalMs": 500
     }
   ],
@@ -1291,8 +1427,7 @@
   "noteForms": {},
   "angularObjects": {
     "md:shared_process": [],
-    "python:shared_process": [],
-    "sh:shared_process": []
+    "python:shared_process": []
   },
   "config": {
     "isZeppelinNotebookCronEnable": false,
